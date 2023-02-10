@@ -9,6 +9,9 @@ import { InvoiceComponent } from './invoice/invoice.component';
 import { TablesComponent } from './tables/tables.component';
 import { MenuDisplayComponent } from './menu-display/menu-display.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
+import { TableMasterComponent } from './table-master/table-master.component';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms'
+import {HttpClientModule} from '@angular/common/http'
 
 
 
@@ -19,12 +22,16 @@ import { CreateOrderComponent } from './create-order/create-order.component';
     InvoiceComponent,
     TablesComponent,
     MenuDisplayComponent,
-    CreateOrderComponent
-  ],
+    CreateOrderComponent,
+    TableMasterComponent  ],
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+
   ]
 })
 export class PagesModule { }
