@@ -12,6 +12,9 @@ import { CreateOrderComponent } from './create-order/create-order.component';
 import { TableMasterComponent } from './table-master/table-master.component';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'
 import {HttpClientModule} from '@angular/common/http'
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuMasterComponent } from './menu-master/menu-master.component';
 
 
 
@@ -23,14 +26,17 @@ import {HttpClientModule} from '@angular/common/http'
     TablesComponent,
     MenuDisplayComponent,
     CreateOrderComponent,
-    TableMasterComponent  ],
+    TableMasterComponent,
+    MenuMasterComponent  ],
   imports: [
     CommonModule,
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ]
 })
 export class PagesModule { }

@@ -18,9 +18,8 @@ export class TableMasterService {
     return this._http.post(this.uri,data)
   }
 
-  updateTable(id:string,data:TableModel){
-    console.log(data)
-    return this._http.put(`${this.uri}/${id}`,data)
+  updateTable(data:TableModel){
+    return this._http.put(`${this.uri}/${data._id}`,data)
   }
 
   deletetable(id:string){

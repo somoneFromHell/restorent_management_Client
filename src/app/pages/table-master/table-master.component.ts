@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 import { DbOperation } from 'src/app/helpers/dbOperations';
 import { TableModel } from 'src/app/models/TableMaster';
 import { TableMasterService } from 'src/app/service/table-master.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-table-master',
@@ -11,7 +14,7 @@ import { TableMasterService } from 'src/app/service/table-master.service';
 })
 export class TableMasterComponent {
 
-  constructor(private _tableService: TableMasterService) { }
+  constructor(private _tableService: TableMasterService,private _tosetrService:ToastrService) { }
 
   TablesList: TableModel[] = []
   buttonText: string = "save";
@@ -23,7 +26,7 @@ export class TableMasterComponent {
 
 
   tableForm = new FormGroup({
-    id: new FormControl(''),
+    _id: new FormControl(),
     tableNumber: new FormControl('', Validators.required),
     capacity: new FormControl(4, Validators.required)
   });
@@ -40,17 +43,18 @@ export class TableMasterComponent {
     }
     switch(this.dbOps){
       case DbOperation.create:
-        this._tableService.addTable(<TableModel>this.tableForm.value).subscribe((res) => {
+        this._tableService.addTable(<TableModel>this.tableForm.value).subscribe(() => {
           this.getTables()
-          console.log(res)
+          this._tosetrService.success('data added',"success")
         })  
       break;
 
       case DbOperation.update:
-        this._tableService.updateTable(this.updateTable._id,<TableModel>this.tableForm.value).subscribe((res) => {
+        this._tableService.updateTable(<TableModel>this.tableForm.value).subscribe(() => {
           this.getTables()
-          console.log(res)
+          this._tosetrService.success('data updated ', 'success')
         })
+        
         break;
     }
     this.onCancell()
@@ -77,9 +81,35 @@ export class TableMasterComponent {
 
   delete(id: string) {
     console.log(id)
-    this._tableService.deletetable(id).subscribe(res => {
-      this.getTables();
+    Swal.fire({
+      title:'Confirem Delete !',
+      text:'deleted data is not recoverable.',
+      showCancelButton: true,
+      denyButtonText:'no',
+      icon:'question',
+      confirmButtonText:'yas'
+    
+    }).then((result)=>{
+      if(result.value){
+        this._tableService.deletetable(id).subscribe(res => {
+          this.getTables();
+
+          Swal.fire({
+            title:'success',
+            text:'data is deleted successfully !',
+            icon:'success'
+          })
+
+        })
+      }else{
+        Swal.fire({
+          title:'cancelled',
+          text:' data is safe !',
+          icon:'error'
+        })
+      }
     })
+    
   }
 
   onCancell() {
