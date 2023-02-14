@@ -21,7 +21,6 @@ export class TableMasterComponent {
   submitted: boolean = true;
   dbOps: DbOperation = DbOperation.create;
   backEndErrorMassage: string = "";
-  updateTable:TableModel|undefined;
 
 
 
@@ -38,7 +37,7 @@ export class TableMasterComponent {
 
   onSubmit() {
 
-    if (this.tableForm.invalid && this.updateTable) {
+    if (this.tableForm.invalid ) {
       return;
     }
     switch(this.dbOps){
@@ -73,9 +72,9 @@ export class TableMasterComponent {
     console.log(id)
     this.buttonText = "update"
     this.dbOps = DbOperation.update;
-    this.updateTable= this.TablesList.find((table:TableModel)=>table._id===id)
-    if(this.updateTable){
-      this.tableForm.patchValue(this.updateTable)
+    const updateTable= this.TablesList.find((table:TableModel)=>table._id===id)
+    if(updateTable){
+      this.tableForm.patchValue(updateTable)
     }
     }
 
