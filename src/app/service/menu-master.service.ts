@@ -23,7 +23,7 @@ export class MenuMasterService {
     return this._http.put(`${this.url}/${body._id}`,body)
   }
 
-  deleteMenu(body:menuMasterModel){
-    return this._http.delete(`${this.url}/${body._id}`)
+  deleteMenu(id:string){
+    return this._http.delete(`${this.url}/${id}`)
   }
 }

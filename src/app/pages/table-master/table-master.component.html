@@ -25,45 +25,13 @@
       <!-- /.card-header -->
       <div class="card-body">
 
-            <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
 
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"  (click)="onCancell()">
+            add table
+          </button>
 
-        <form [formGroup]="tableForm">
-          <div class="row">
-            <div class="col-lg-2">
-              <div class="form-group">
-                <label for="tablenumber" style="margin-bottom: 0;font-size: small;">Table Number</label>
-                <input formControlName="tableNumber" id="tablenumber" type="text" class="form-control">
-                <!-- <p>{{tableForm.controls.capacity.errors|json}}</p> -->
-              </div>
-              <!-- /input-group -->
-            </div>
-            <div class="col-lg-2">
-              <div class="form-group">
-                <label for="tablenumber" style="margin-bottom: 0;font-size: small;">capacity</label>
-                <input type="number" formControlName="capacity" class="form-control" name="capacity">
-              </div>
-              <!-- /input-group -->
-            </div>
-
-            <div class="col-lg-1 col">
-              
-              <button type="submit" (click)="onSubmit()" class="btn btn-block btn-info btn-xs" style="margin-top: 20px;">{{buttonText}}</button>
         
-            </div>
-            
-              <div class="col-lg-1 col">
-             
-              <button type="button" (click)="onCancell()" class="btn btn-block btn-danger btn-xs" style="margin-top: 20px;">X</button>
-
-              <!-- /input-group -->
-          </div>
-            <!-- /.col-lg-6 -->
-          </div>
-        </form>
-
-            <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
-
 
         <hr class="hr" />
         <table class="table table-bordered">
@@ -79,7 +47,7 @@
               <td>{{item.tableNumber}}</td>
               <td>{{item.capacity}}</td>
               <td>
-                <a (click)="edit(item._id)"><i class="fas fa-pen ml-2"></i></a>
+                <a (click)="edit(item._id)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-pen ml-2"></i></a>
                 <a (click)="delete(item._id)" type="submit"><i class="fas fa-trash ml-2"></i></a>
               </td>
             </tr>
@@ -97,6 +65,58 @@
             <button type="button" class="btn btn-block btn-info btn-xs"><i class="fas fa-book"></i> invoice</button>
           </div>
         </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+
+
+                  <form [formGroup]="tableForm">
+                    
+                    <div class="form-group">
+                      <label for="name">Table number</label>
+                      <input type="email" class="form-control" [ngClass]="{'is-invalid':submitted && tableFormControls.tableNumber.errors}" id="name"  placeholder="Title for menu" formControlName="tableNumber">
+                      <div class="invalid-feedback" >
+                        table number is required.
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="capacity">Capacity</label>
+                      <textarea type="email" class="form-control" id="capacity" [ngClass]="{'is-invalid':submitted && tableFormControls.capacity.errors}" placeholder="Title for menu" formControlName="capacity"></textarea>
+                      <div class="invalid-feedback" >
+                        capacity is required..
+                      </div>
+                    </div>
+
+                  </form>
+
+                  <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" (click)="onSubmit()" [attr.data-dismiss]="modalStatus">{{buttonText}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+
+
+
       </div>
 
     </div>

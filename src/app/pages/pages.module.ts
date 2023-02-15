@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuMasterComponent } from './menu-master/menu-master.component';
+import { FoodMasterComponent } from './food-master/food-master.component';
 
 
 
@@ -27,7 +28,8 @@ import { MenuMasterComponent } from './menu-master/menu-master.component';
     MenuDisplayComponent,
     CreateOrderComponent,
     TableMasterComponent,
-    MenuMasterComponent  ],
+    MenuMasterComponent,
+    FoodMasterComponent  ],
   imports: [
     CommonModule,
     BrowserModule,

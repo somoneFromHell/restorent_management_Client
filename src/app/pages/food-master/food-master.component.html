@@ -1,0 +1,140 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Food</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">admin</a></li>
+            <li class="breadcrumb-item active">food</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  
+  <section class="content">
+    <div class="container-fluid">
+  
+      <div class="card">
+
+        <div class="card-body">
+  
+  
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"  (click)="onCancel()">
+              add Food item
+            </button>
+  
+          
+  
+          <hr class="hr" />
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>food item</th>
+                <th >price</th>
+                <th >Actions</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr *ngFor="let item of foodList">
+                <td>{{item.food}}</td>
+                <td>{{item.price}}</td>
+                <td>
+                  <a (click)="edit(item._id)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-pen ml-2"></i></a>
+                  <a (click)="delete(item._id)" type="submit"><i class="fas fa-trash ml-2"></i></a>
+                </td>
+              </tr>
+  
+  
+            </tbody >
+          </table>
+  
+          <br>
+          <div class="row justify-content-end">
+            <div class="col-md-2">
+              <button type="button" class="btn btn-block btn-info btn-xs"><i class="fas fa-table"></i> tables</button>
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-block btn-info btn-xs"><i class="fas fa-book"></i> invoice</button>
+            </div>
+          </div>
+  
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+  
+                    <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+  
+  
+                    <form [formGroup]="foodForm">
+
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1" class="mb-1 font-waight-bold small">select menu</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                              <option [value]="menuItem._id" *ngFor="let menuItem of menuList">{{menuItem.name}}</option>
+                              
+                            </select>
+                          </div>
+                      
+                      <div class="form-group">
+                        <label for="name" class="mb-1 font-weight-bold small">food item</label>
+                        <input type="text" class="form-control" [ngClass]="{'is-invalid':submitted && foodFormControll.food.errors}" id="name"  placeholder="Title for menu" formControlName="food">
+                        <div class="invalid-feedback" >
+                        food name is required.
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label for="name" class="mb-1 font-weight-bold small">price</label>
+                        <input type="number" class="form-control" id="name" [ngClass]="{'is-invalid':submitted && foodFormControll.food.errors}" formControlName="price">
+                        <div class="invalid-feedback" >
+                        price name is required.
+                        </div>
+                      </div>
+
+                      
+                      <div class="form-group">
+                        <label for="capacity" class="mb-1 font-weight-bold small">Discription</label>
+                        <textarea type="text" class="form-control" id="capacity" placeholder="Title for menu" formControlName="discription"></textarea>
+                        
+                      </div>
+  
+                    </form>
+  
+                    <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+  
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()" [attr.data-dismiss]="modalStatus">{{buttonText}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+  
+  
+  
+        </div>
+  
+      </div>
+      <!-- /.card -->
+      <!-- /.row -->
+  
+    </div><!-- /.container-fluid -->
+  </section>

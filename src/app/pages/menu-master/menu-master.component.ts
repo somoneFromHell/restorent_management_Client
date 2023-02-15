@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DbOperation } from 'src/app/helpers/dbOperations';
 import { menuMasterModel } from 'src/app/models/menuMaster';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu-master',
@@ -17,6 +18,7 @@ export class MenuMasterComponent{
   dbOps:DbOperation = DbOperation.create
 
   menuMasterForm = new FormGroup({
+    _id : new FormControl(),
     name : new FormControl("",Validators.required),
     discription : new FormControl("",Validators.required)
   })
@@ -34,15 +36,21 @@ export class MenuMasterComponent{
 
 
   onSubmit(){
+    console.log(this.dbOps)
     switch(this.dbOps){
     case DbOperation.create:
       console.log("called")
+      
     this._menuService.createMenu(<menuMasterModel>this.menuMasterForm.value).subscribe(()=>{
+      this.getMenu()
       this._tosterService.success("new record added in menu",'Success')
     })
     break;
     case DbOperation.update:
+      console.log("update called")
+
       this._menuService.updateMenu(<menuMasterModel>this.menuMasterForm.value).subscribe(()=>{
+        this.getMenu()
         this._tosterService.success('record updated','success')
       })  
     break;
@@ -64,7 +72,32 @@ export class MenuMasterComponent{
 }
 
   delete(id:string){
-
+    Swal.fire({
+      title:'R u sure ??',
+      text:'u will not be able to recover data',
+      icon:'question',
+      confirmButtonText:"yah..",
+      denyButtonText:"nop",
+      showCancelButton:true
+    }).then((result=>{
+      if(result.value){
+        this._menuService.deleteMenu(id).subscribe(res=>{
+          this.getMenu();
+          Swal.fire({
+            title:'success',
+            text:'data deleted successfully',
+            icon:'success'
+          })
+        })
+      }else{
+        Swal.fire({
+          title:'cancelled',
+          text:'wtf y the hell you chose that in the first place',
+          icon:"error"
+        })
+      }
+    }))
+    
   }
 
   

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateOrderComponent } from './pages/create-order/create-order.component';
+import { FoodMasterComponent } from './pages/food-master/food-master.component';
 import { FoodComponent } from './pages/food/food.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { MenuDisplayComponent } from './pages/menu-display/menu-display.component';
@@ -10,7 +11,7 @@ import { TableMasterComponent } from './pages/table-master/table-master.componen
 import { TablesComponent } from './pages/tables/tables.component';
 
 const routes: Routes = [
-  {path:'food',component:FoodComponent},
+  {path:'food-master',component:FoodMasterComponent},
   {path:'menu-master',component:MenuMasterComponent},
   {path:'invoice',component:InvoiceComponent},
   {path:'tables',component:TablesComponent},

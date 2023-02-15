@@ -14,13 +14,14 @@ import Swal from 'sweetalert2';
 })
 export class TableMasterComponent {
 
-  constructor(private _tableService: TableMasterService,private _tosetrService:ToastrService) { }
+  constructor(private _tableService: TableMasterService, private _tosetrService: ToastrService) { }
 
   TablesList: TableModel[] = []
   buttonText: string = "save";
-  submitted: boolean = true;
+  submitted: boolean = false;
   dbOps: DbOperation = DbOperation.create;
   backEndErrorMassage: string = "";
+  modalStatus = "modal"
 
 
 
@@ -30,34 +31,46 @@ export class TableMasterComponent {
     capacity: new FormControl(4, Validators.required)
   });
 
+  get tableFormControls() {
+    return this.tableForm.controls
+  }
+
 
   ngOnInit() {
     this.getTables()
   }
 
   onSubmit() {
-
-    if (this.tableForm.invalid ) {
+    this.submitted = true
+    if (this.tableForm.invalid) {
+      this.modalStatus = ""
       return;
     }
-    switch(this.dbOps){
+    switch (this.dbOps) {
       case DbOperation.create:
         this._tableService.addTable(<TableModel>this.tableForm.value).subscribe(() => {
           this.getTables()
-          this._tosetrService.success('data added',"success")
-        })  
-      break;
+          this._tosetrService.success('data added', "success")
+          this.modalStatus = "modal"
+
+          this.submitted = false
+        })
+        break;
 
       case DbOperation.update:
         this._tableService.updateTable(<TableModel>this.tableForm.value).subscribe(() => {
           this.getTables()
           this._tosetrService.success('data updated ', 'success')
+          this.modalStatus = "modal"
+
+          this.submitted = false
+
         })
-        
+
         break;
     }
     this.onCancell()
-    
+
   }
 
   getTables() {
@@ -72,48 +85,49 @@ export class TableMasterComponent {
     console.log(id)
     this.buttonText = "update"
     this.dbOps = DbOperation.update;
-    const updateTable= this.TablesList.find((table:TableModel)=>table._id===id)
-    if(updateTable){
+    const updateTable = this.TablesList.find((table: TableModel) => table._id === id)
+    if (updateTable) {
       this.tableForm.patchValue(updateTable)
     }
-    }
+  }
 
   delete(id: string) {
     console.log(id)
     Swal.fire({
-      title:'Confirem Delete !',
-      text:'deleted data is not recoverable.',
+      title: 'Confirem Delete !',
+      text: 'deleted data is not recoverable.',
       showCancelButton: true,
-      denyButtonText:'no',
-      icon:'question',
-      confirmButtonText:'yas'
-    
-    }).then((result)=>{
-      if(result.value){
+      denyButtonText: 'no',
+      icon: 'question',
+      confirmButtonText: 'yas'
+
+    }).then((result) => {
+      if (result.value) {
         this._tableService.deletetable(id).subscribe(res => {
           this.getTables();
 
           Swal.fire({
-            title:'success',
-            text:'data is deleted successfully !',
-            icon:'success'
+            title: 'success',
+            text: 'data is deleted successfully !',
+            icon: 'success'
           })
 
         })
-      }else{
+      } else {
         Swal.fire({
-          title:'cancelled',
-          text:' data is safe !',
-          icon:'error'
+          title: 'cancelled',
+          text: ' data is safe !',
+          icon: 'error'
         })
       }
     })
-    
+
   }
 
   onCancell() {
     this.tableForm.reset();
     this.buttonText = "save"
+    this.submitted = false
   }
 
 
