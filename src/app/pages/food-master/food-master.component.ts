@@ -6,15 +6,19 @@ import { foodMasterModel } from 'src/app/models/FoodMaster';
 import { menuMasterModel } from 'src/app/models/menuMaster';
 import { FoodService } from 'src/app/service/food.service';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-food-master',
   templateUrl: './food-master.component.html',
   styleUrls: ['./food-master.component.css']
 })
+
+
+
 export class FoodMasterComponent {
 
-  constructor(private _foodService: FoodService,private _menuService:MenuMasterService, private _toster: ToastrService) { }
+  constructor(private _foodService: FoodService,private _sanitizer: DomSanitizer, private _menuService: MenuMasterService, private _toster: ToastrService) { }
 
   dbops = DbOperation.create
   submitted = false
@@ -22,15 +26,19 @@ export class FoodMasterComponent {
   modalStatus = "modal"
   foodList: foodMasterModel[] = []
   menuList: menuMasterModel[] = []
-
+  selectedtext: string = "";
+  imageSrc:string|ArrayBuffer|null = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
+  // image = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png';
+  file: File | undefined;
 
   foodForm = new FormGroup({
     _id: new FormControl(),
     food: new FormControl('', Validators.required),
-    discription: new FormControl(''),
+    description: new FormControl(''),
     price: new FormControl(0, Validators.required),
-    foodImage: new FormControl('https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png'),
+    foodImage: new FormControl(),
     menuId: new FormControl('', Validators.required),
+
   })
 
   get foodFormControll() {
@@ -42,54 +50,75 @@ export class FoodMasterComponent {
     this.getMenu()
   }
 
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
+
   onSubmit() {
     if (this.foodForm.invalid) {
       this.modalStatus = ""
       return
     }
+
+
     switch (this.dbops) {
       case DbOperation.create:
         console.log("called")
-      console.log(DbOperation.create)
+        console.log(DbOperation.create)
         this._foodService.addFoodData(<foodMasterModel>this.foodForm.value).subscribe(() => {
+          console.log(this.foodForm.value)
           this.getFood()
           this._toster.success("new record added in menu", 'Success')
           this.modalStatus = "modal"
         })
         break;
 
-        case DbOperation.update:
-          this._foodService.updateFoodData(<foodMasterModel>this.foodForm.value).subscribe(()=>{
-            this.getFood()
-            this._toster.success("record Updated",'Success')
-            this.modalStatus = "modal"
-          })
-          break;
+      case DbOperation.update:
+        console.log(this.foodForm.value)
+        this._foodService.updateFoodData(<foodMasterModel>this.foodForm.value).subscribe(() => {
+          this.getFood()
+          this._toster.success("record Updated", 'Success')
+          this.modalStatus = "modal"
+        })
+        break;
 
     }
+    this.onCancel()
   }
 
   getFood() { this._foodService.getFoodData().subscribe((res: any) => { this.foodList = res }) }
-  getMenu(){this._menuService.getAllMenu().subscribe((res:any)=>{this.menuList = res})}
+  getMenu() { this._menuService.getAllMenu().subscribe((res: any) => { this.menuList = res }) }
 
   edit(id: string) {
+    console.log(id)
+    this.onCancel()
     this.dbops = DbOperation.update
     this.buttonText = "update"
-    const updateFood = this.foodList.find((food: foodMasterModel) => food._id = id)
+    const updateFood = this.foodList.find((food: foodMasterModel) => food._id === id)
     if (updateFood) { this.foodForm.patchValue(updateFood) }
+
+    this.selectedtext = id
+    console.log(this.selectedtext)
+
   }
 
   delete(id: string) {
     this._foodService.deleteFoodData(id)
+    console.log(id)
+    this.getFood()
   }
 
   onCancel() {
     this.foodForm.reset()
     this.buttonText = "save"
     this.submitted = false
+
+    this.imageSrc ='https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
   }
-
-
-
-
 }

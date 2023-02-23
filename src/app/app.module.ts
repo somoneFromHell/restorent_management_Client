@@ -10,7 +10,9 @@ import { ControllSidebarComponent } from './common/controll-sidebar/controll-sid
 import { MainFooterComponent } from './common/main-footer/main-footer.component';
 import { PagesModule } from './pages/pages.module';
 import { RouterModule } from '@angular/router';
+import { DropdownModule} from 'primeng/dropdown'
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     ContentWrapperComponent,
     ControllSidebarComponent,
     MainFooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    PagesModule
+    PagesModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

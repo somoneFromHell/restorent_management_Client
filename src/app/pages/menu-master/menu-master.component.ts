@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DbOperation } from 'src/app/helpers/dbOperations';
 import { menuMasterModel } from 'src/app/models/menuMaster';
@@ -20,7 +20,7 @@ export class MenuMasterComponent{
   menuMasterForm = new FormGroup({
     _id : new FormControl(),
     name : new FormControl("",Validators.required),
-    discription : new FormControl("",Validators.required)
+    description : new FormControl("",Validators.required)
   })
 
   ngOnInit() {
@@ -36,6 +36,9 @@ export class MenuMasterComponent{
 
 
   onSubmit(){
+    if (this.menuMasterForm.invalid) {
+      return
+    }
     console.log(this.dbOps)
     switch(this.dbOps){
     case DbOperation.create:
@@ -66,8 +69,7 @@ export class MenuMasterComponent{
     this.buttonText='update'
     this.dbOps = DbOperation.update
     const updateMenu = this.menuList.find((menu:menuMasterModel)=>menu._id === id)
-    if(updateMenu){
-    this.menuMasterForm.patchValue(updateMenu)
+    if(updateMenu){this.menuMasterForm.patchValue(updateMenu)
   }
 }
 
@@ -97,9 +99,6 @@ export class MenuMasterComponent{
         })
       }
     }))
-    
+ 
   }
-
-  
-
 }

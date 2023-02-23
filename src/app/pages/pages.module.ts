@@ -16,6 +16,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuMasterComponent } from './menu-master/menu-master.component';
 import { FoodMasterComponent } from './food-master/food-master.component';
+import {  DropdownModule} from 'primeng/dropdown';
+import { OrderComponent } from './order/order.component'
 
 
 
@@ -29,7 +31,8 @@ import { FoodMasterComponent } from './food-master/food-master.component';
     CreateOrderComponent,
     TableMasterComponent,
     MenuMasterComponent,
-    FoodMasterComponent  ],
+    FoodMasterComponent,
+    OrderComponent  ],
   imports: [
     CommonModule,
     BrowserModule,
@@ -38,7 +41,8 @@ import { FoodMasterComponent } from './food-master/food-master.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    DropdownModule
   ]
 })
 export class PagesModule { }

@@ -40,14 +40,14 @@
           <thead>
             <tr>
               <th>menu Title</th>
-              <th>Discription</th>
+              <th>Description</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of menuList">
               <td>{{item.name}}</td>
-              <td>{{item.discription}}</td>
+              <td>{{item.description}}</td>
               <td>
                 <a (click)="edit(item._id)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-pen ml-2"></i></a>
                 <a (click)="delete(item._id)" type="submit"><i class="fas fa-trash ml-2"></i></a>
@@ -94,7 +94,7 @@
                     
                     <div class="form-group">
                       <label for="name">description</label>
-                      <textarea type="email" class="form-control" id="name"  placeholder="Title for menu" formControlName="discription"></textarea>
+                      <textarea type="email" class="form-control" id="name"  placeholder="Title for menu" formControlName="description"></textarea>
                     </div>
 
                   </form>

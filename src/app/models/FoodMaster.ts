@@ -3,5 +3,6 @@ export interface foodMasterModel {
     food:string,
     price:number,
     foodImage:string,
-    menuId:string
+    menuId:string,
+    description:string
 }
