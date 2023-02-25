@@ -15,6 +15,14 @@ export class FoodService {
     return this._http.get(this.url)
   }
 
+  getFoodById(id:string){
+    return this._http.get(`${this.url}/${id}`)
+  }
+
+  getFoodByMenu(mId:string){
+    return this._http.get(`${this.url}/bymenu/${mId}`)
+  }
+
   addFoodData(data:foodMasterModel){
     return this._http.post(this.url,data)
   }

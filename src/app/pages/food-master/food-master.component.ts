@@ -7,6 +7,7 @@ import { menuMasterModel } from 'src/app/models/menuMaster';
 import { FoodService } from 'src/app/service/food.service';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-food-master',
@@ -18,7 +19,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 
 export class FoodMasterComponent {
 
-  constructor(private _foodService: FoodService,private _sanitizer: DomSanitizer, private _menuService: MenuMasterService, private _toster: ToastrService) { }
+  constructor(private _foodService: FoodService, private _menuService: MenuMasterService, private _toster: ToastrService) { }
 
   dbops = DbOperation.create
   submitted = false
@@ -29,7 +30,7 @@ export class FoodMasterComponent {
   selectedtext: string = "";
   imageSrc:string|ArrayBuffer|null = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
   // image = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png';
-  file: File | undefined;
+  file: any;
 
   foodForm = new FormGroup({
     _id: new FormControl(),
@@ -51,14 +52,29 @@ export class FoodMasterComponent {
   }
 
   onFileSelected(event: any) {
+    console.log(this.foodForm.value)
     this.file = event.target.files[0];
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
+    if (event.target.files && this.file){
+      const imagefile = event.target.files[0];
       const reader = new FileReader();
       reader.onload = e => this.imageSrc = reader.result;
-      reader.readAsDataURL(file);
-    }
+      reader.readAsDataURL(imagefile);
+
+      this.foodForm.patchValue(
+        {foodImage:this.file}
+      )
+      console.log(this.foodForm.value)
+  }}
+
+  ImageUpload(img:File){
+    const formData = new FormData();
+    if(this.foodForm.value){}
+    formData.append('file', img);
+
+
   }
+    
+  
 
   onSubmit() {
     if (this.foodForm.invalid) {
@@ -101,7 +117,18 @@ export class FoodMasterComponent {
     this.dbops = DbOperation.update
     this.buttonText = "update"
     const updateFood = this.foodList.find((food: foodMasterModel) => food._id === id)
-    if (updateFood) { this.foodForm.patchValue(updateFood) }
+
+    
+
+    if (updateFood) 
+    { 
+      this.foodForm.controls['food'].setValue(updateFood.food),
+      this.foodForm.controls['description'].setValue(updateFood.description),
+      this.foodForm.controls['menuId'].setValue(updateFood.menuId),
+      this.foodForm.controls['price'].setValue(updateFood.price)
+      
+      this.imageSrc = `http://localhost:3200/foodImages/${updateFood.foodImage}`
+    }
 
     this.selectedtext = id
     console.log(this.selectedtext)
@@ -111,6 +138,7 @@ export class FoodMasterComponent {
   delete(id: string) {
     this._foodService.deleteFoodData(id)
     console.log(id)
+
     this.getFood()
   }
 

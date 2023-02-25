@@ -12,7 +12,6 @@ import { PagesModule } from './pages/pages.module';
 import { RouterModule } from '@angular/router';
 import { DropdownModule} from 'primeng/dropdown'
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { OrderComponent } from './order/order.component';
     ContentWrapperComponent,
     ControllSidebarComponent,
     MainFooterComponent,
-    DashboardComponent,
-    OrderComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>create-order</h1>
+                <h1>create order</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -19,14 +19,12 @@
     <div class="container-fluid">
 
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">create order for table no. {{table.tableNumber}}</h3>
-            </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="row justify-content-end">
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-block btn-info btn-xs"  data-toggle="modal" data-target="#exampleModalCenter" ><i class="fas fa-plus"></i> add item</button>
+                        <button type="button" class="btn btn-block btn-info btn-xs" data-toggle="modal"
+                            data-target="#exampleModalCenter"><i class="fas fa-plus"></i> add item</button>
                     </div>
                 </div>
 
@@ -36,129 +34,86 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Food Item</th>
-                            <th>size</th>
                             <th style="width: 40px">Quntity</th>
+                            <th style="width: 40px">price</th>
+                            <th style="width: 40px">combined price</th>
                             <th style="width: 40px">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1.</td>
-                            <td>Update software</td>
+                            <td>som food</td>
+                            <td>3</td>
+                            <td>combined price</td>
+                            <td>price</td>
                             <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                </div>
+                                <a (click)="edit('sad')" data-toggle="modal" data-target="#exampleModalCenter"><i
+                                        class="fas fa-pen ml-2"></i></a>
+                                <a (click)="delete('asd')" type="submit"><i class="fas fa-trash ml-2"></i></a>
                             </td>
-                            <td><span class="badge bg-danger">55%</span></td>
                         </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>Clean database</td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-warning">70%</span></td>
-                        </tr>
-                        <tr>
-                            <td>3.</td>
-                            <td>Cron job running</td>
-                            <td>
-                                <div class="progress progress-xs progress-striped active">
-                                    <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-primary">30%</span></td>
-                        </tr>
-                        <tr>
-                            <td>4.</td>
-                            <td>Fix and squish bugs</td>
-                            <td>
-                                <div class="progress progress-xs progress-striped active">
-                                    <div class="progress-bar bg-success" style="width: 90%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-success">90%</span></td>
-                        </tr>
+
                     </tbody>
                 </table>
 
-                <br>
-                <div class="row justify-content-end">
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-block btn-info btn-xs" [routerLink]="['/tables']"><i
-                                class="fas fa-table"></i> tables</button>
-                    </div>
 
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-block btn-info btn-xs"><i class="fas fa-book"></i>
-                            invoice</button>
-                    </div>
-                </div>
 
             </div>
 
         </div>
         <!-- /.card -->
 
-<!---------------------------- /.modal -------------------------------------------------->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        <!---------------------------- /.modal -------------------------------------------------->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-
-                  <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
-
-
-                  <form [formGroup]="orderItemForm">
-
-                    <div class="form-group">
-                        <label for="name">select Menu</label>
-                        <input type="email" class="form-control" id="name"  placeholder="Title for menu" formControlName="FoodId">
-                      </div>
-                    
-                    <div class="form-group">
-                      <label for="name">select Food</label>
-                      <input type="email" class="form-control" id="name"  placeholder="Title for menu" formControlName="FoodId">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="name">size</label>
-                        <input type="number" class="form-control" id="name"  placeholder="Title for menu" formControlName="quntity">
-                      </div>
+                        <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
 
 
-                    
-                    <div class="form-group">
-                      <label for="name">quntity</label>
-                      <select class="form-control" id="exampleFormControlSelect1" formControlName="menuId">
-                      <option value="small">small</option>
-                      <option value="medium">medium</option>
-                      <option value="large">large</option>
-                    </select>
+                        <form [formGroup]="orderItemForm">
+
+                           <div class="form-group">
+                            <label for="menudeopdown" class="mb-1 font-waight-bold small">select menu</label>
+                            <select class="form-control" id="menudeopdown" formControlName="menuId" #myselect (change)="menuSelected(myselect.value)">
+                                    <option [value]="item._id" *ngFor="let item of menuList">{{item.name}}</option>
+                                </select>
+                           </div>
+
+                           <div class="form-group">
+                            <label for="fooddropdown" class="mb-1 font-waight-bold small">select food</label>
+                            <select class="form-control" id="fooddropdown" formControlName="menuId" #myselect >
+                                    <option [value]="item._id" *ngFor="let item of foodList">{{item.food}}</option>
+                                </select>
+                           </div>
+
+                            <div class="form-group">
+                                <label class="mb-1 font-weight-bold small" for="name">quntity</label>
+                                <input type="number" class="form-control" id="name" placeholder="Title for menu"
+                                    formControlName="quntity">
+                            </div>
+                        </form>
+
+                        <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+
                     </div>
-
-                  </form>
-
-                  <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" (click)="onSubmit()"
+                            data-dismiss="modal">{{buttonText}}</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary" (click)="onSubmit()" data-dismiss="modal">{{buttonText}}</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
 
 
 
