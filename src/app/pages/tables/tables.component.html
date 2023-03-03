@@ -31,7 +31,7 @@
       <div class="info-box-content">
         <span class="info-box-text small">capacity :- {{item.capacity}}</span>
         <span class="info-box-number small" >current no of guests:-{{item.currentGuests}}</span>
-        <button type="submit" class="btn btn-outline-dark" (click)="buttonClick(item._id)" [routerLink]="['/order']" [queryParams]="{TableId:item._id}">{{item.occupied? 'order info':'add order'}}</button>
+        <button type="submit" class="btn btn-outline-dark" (click)="!item.occupied && buttonClick(item._id)" [routerLink]="['/order']" [queryParams]="{TableId:item._id}">{{item.occupied? 'order info':'add order'}}</button>
       </div>
       <!-- /.info-box-content -->
     </div>

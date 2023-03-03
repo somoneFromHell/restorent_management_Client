@@ -15,8 +15,12 @@ export class MenuMasterService {
     return this._http.get(this.url)
   }
 
+  getMenuById(id:string){
+    return this._http.get(`${this.url}/${id}`)
+  }
+
   createMenu(body:menuMasterModel){
-    return this._http.post(this.url,body)
+    return this._http.post(this.url,body);
   }
 
   updateMenu(body:menuMasterModel){

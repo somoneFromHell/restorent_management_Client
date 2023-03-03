@@ -1,7 +1,8 @@
+import { orderItemModel } from "./OrderItemModel";
+
 export interface orderModel{
     _id:string,
     orderDate:Date,
     TableId:String,
-    reserveTime:Date,
-    ClearTime:Date
+    orderItems:orderItemModel
 }

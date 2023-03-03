@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { TableModel } from 'src/app/models/TableMaster';
 import { TableMasterService } from 'src/app/service/table-master.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TablesService } from 'src/app/service/tables.service';
+import { OrderService } from 'src/app/service/order.service';
 
 @Component({
   selector: 'app-tables',
@@ -10,23 +12,39 @@ import { Router } from '@angular/router';
 })
 export class TablesComponent {
 
-  constructor(private _tableservice:TableMasterService) {}
+  constructor(private route:ActivatedRoute,private router:Router,private _tableMasterService:TableMasterService,private _tableService :TablesService,private _orderService :OrderService) {
+    route.params.subscribe(val => this.loadTables());
+  }
   tableList: TableModel[] =[]
 
+
+
+  loadTables(){
+    this.getTable();  
+  }
+
   ngOnInit() {
-    this.getTable()
+
+   
+ 
+    
   }
 
   getTable(){
-    this._tableservice.getTables().subscribe((res:any)=>{
+    this._tableMasterService.getTables().subscribe((res:any)=>{
       this.tableList = res
       console.log(this.tableList)
-    })
-  }
+    })}
 
   buttonClick(id:string){
-    
+    this._orderService.addOrder({
+      TableId:id,orderDate:new Date()
+    })
+    this._tableService.patchTable({_id:id})
+    console.log(id)
   }
+
+
 
 
 }

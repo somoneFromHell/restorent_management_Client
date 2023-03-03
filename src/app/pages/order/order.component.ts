@@ -7,7 +7,14 @@ import { orderItemModel } from 'src/app/models/OrderItemModel';
 import { TableModel } from 'src/app/models/TableMaster';
 import { FoodService } from 'src/app/service/food.service';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
-import { OrderService } from 'src/app/service/order.service';
+import { TablesService } from 'src/app/service/tables.service';
+import { Router } from '@angular/router';
+import { OrderItemsService } from 'src/app/service/order-items.service';
+import { DbOperation } from 'src/app/helpers/dbOperations';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-order',
@@ -16,69 +23,120 @@ import { OrderService } from 'src/app/service/order.service';
 })
 export class OrderComponent {
 
-  constructor(private route: ActivatedRoute, private _foodService: FoodService, private _menuService: MenuMasterService, private _orderService: OrderService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private _foodService: FoodService, private _tableService: TablesService, private _menuService: MenuMasterService, private _orderItemService: OrderItemsService, private _tosetrService: ToastrService) { }
 
   table!: TableModel;
   buttonText = 'add';
+  dbOps: DbOperation = DbOperation.create;
   menuList: menuMasterModel[] = []
   foodList: foodMasterModel[] = []
   orderItems: orderItemModel[] = []
-
+  selectedTableId: any = ''
+  // menuId = ''
 
 
   ngOnInit() {
-    this.tableStatus()
-    this.createOrder()
     this.getMenu()
+    this.route.queryParams.subscribe(params => {
+      this.selectedTableId = params['TableId']
+    });
+    console.log(this.selectedTableId)
+    this.getOrderItems(this.selectedTableId)
+
   }
 
   orderItemForm = new FormGroup({
-    foodId:new FormControl('',Validators.required),
-    quantity:new FormControl(0,Validators.required),
-    unitPrice: new FormControl(0),
+    menuId: new FormControl('',Validators.required),
+    foodId: new FormControl('', Validators.required),
+    quantity: new FormControl(1, Validators.required),
     orderId: new FormControl(''),
-    foodName : new FormControl('')
   })
 
 
-// < stert from herre
+  // < stert from herre
   onSubmit() {
-    if(this.orderItemForm.value.foodId){
-      const selectedFood = this._foodService.getFoodById(this.orderItemForm.value.foodId)
-      this.orderItemForm.value.unitPrice = this.orderItemForm.value.quantity  
-    }
+    this.cancell()
 
-   }
+    this._orderItemService.addOrderItem(this.selectedTableId, this.orderItemForm.value).subscribe(() => {
+    this.getOrderItems(this.selectedTableId)
+    this._tosetrService.success('data added', "success")
+
+
+    })
+  }
+
   getMenu() { this._menuService.getAllMenu().subscribe((res: any) => { this.menuList = res }) }
-  
+  getOrderItems(menuId: string) { this._orderItemService.getOrderItem(menuId).subscribe((res: any) => { this.orderItems = res }) }
+
   menuSelected(mId: string) {
     this._foodService.getFoodByMenu(mId).subscribe((res: any) => {
       this.foodList = res
-    })}
+    })
+  }
 
-    createOrder(){
-      const now = new Date();
+  cancellOrder() {
 
-      // this._orderService.addOrder({
-      //   _id:'',
-      //   orderDate:now.getTime,
-      //   TableId:'',
-      //   reserveTime:now.getDate
-      // })
+    console.log(this.selectedTableId)
+    this._tableService.deleteOrderByTableId(this.selectedTableId)
+    this._tableService.patchTable({ _id: this.selectedTableId })
+    this.router.navigateByUrl('/tables');
+  }
+
+  cancell() {
+    this.buttonText = 'add';
+    this.dbOps = DbOperation.create;
+    this.orderItemForm.reset();
+
+  }
+  edit(id: string) {
+    this.cancell()
+    this.buttonText = 'update';
+    this.dbOps = DbOperation.update;
+    const updateOrderItem = this.orderItems.find((item: orderItemModel) => item._id === id)
+
+    console.log(updateOrderItem)
+    if (updateOrderItem) {
+        this.orderItemForm.controls['menuId'].setValue(updateOrderItem.menuId)
+        this.orderItemForm.controls['foodId'].setValue(updateOrderItem.foodId)
+        this.orderItemForm.controls['quantity'].setValue(updateOrderItem.quantity)
     }
+  }
 
-    tableStatus(){
-          const id = this.route.snapshot.queryParamMap.get('id');
-    console.log(id)
-    console.log('colled')
-    if (id)
-      this._orderService.getTable(id).subscribe((res: any) => {
-        this.table = res
-      })
-    }
+  modealcalled(){
+    this.cancell()
+  }
 
-  edit(id: string) { }
-  delete(id: string) { }
+  genrateInvoice(){
+    
+  }
+
+  delete(id: string) {
+    Swal.fire({
+      title: 'R u sure ??',
+      text: 'remove this item from the order',
+      icon: 'question',
+      confirmButtonText: "yah..",
+      denyButtonText: "nop",
+      showCancelButton: true
+    }).then((result => {
+      if (result.value) {
+        this._orderItemService.deleteOrderItem(this.selectedTableId, id).subscribe(res => {
+          this.getOrderItems(this.selectedTableId)
+          Swal.fire({
+            title: 'success',
+            text: 'item removed',
+            icon: 'success'
+          })
+        })
+      } else {
+        Swal.fire({
+          title: 'cancelled',
+          text: 'wtf y the hell you chose that in the first place',
+          icon: "error"
+        })
+      }
+    }))
+  }
 
 }
 
