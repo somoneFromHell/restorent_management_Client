@@ -78,7 +78,7 @@ export class OrderComponent {
 
     console.log(this.selectedTableId)
     this._tableService.deleteOrderByTableId(this.selectedTableId)
-    this._tableService.patchTable({ _id: this.selectedTableId })
+    this._tableService.changeTableStatus({ _id: this.selectedTableId })
     this.router.navigateByUrl('/tables');
   }
 

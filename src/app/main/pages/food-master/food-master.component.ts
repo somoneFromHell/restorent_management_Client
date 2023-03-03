@@ -6,8 +6,6 @@ import { foodMasterModel } from 'src/app/models/FoodMaster';
 import { menuMasterModel } from 'src/app/models/menuMaster';
 import { FoodService } from 'src/app/service/food.service';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-food-master',

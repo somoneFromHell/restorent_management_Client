@@ -16,7 +16,7 @@ export class TablesService {
     return this._http.get(this.url)
   }
 
-  patchTable(body:any){
+  changeTableStatus(body:any){
     return this._http.patch(`http://localhost:3200/api/table/tableStatus/${body._id}`,body).subscribe(status => console.log(status))
   }
 

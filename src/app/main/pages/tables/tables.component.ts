@@ -40,7 +40,7 @@ export class TablesComponent {
     this._orderService.addOrder({
       TableId:id,orderDate:new Date()
     })
-    this._tableService.patchTable({_id:id})
+    this._tableService.changeTableStatus({_id:id})
     console.log(id)
   }
 
