@@ -11,6 +11,10 @@ export class FoodService {
   constructor(private _http:HttpClient) { }
 
   url = "http://localhost:3200/api/food"
+
+
+
+
   getFoodData(){
     return this._http.get(this.url)
   }
