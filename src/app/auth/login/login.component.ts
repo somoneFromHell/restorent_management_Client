@@ -21,18 +21,10 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
- 
   }
-
 
   loginFormsubmit(){
     this._loginService.userLogin(this.loginForm.value)
   }
-
-
-
-
-
-
 
 }

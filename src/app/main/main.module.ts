@@ -14,14 +14,11 @@ import { TableMasterComponent } from './pages/table-master/table-master.componen
 import { MenuMasterComponent } from './pages/menu-master/menu-master.component';
 import { FoodMasterComponent } from './pages/food-master/food-master.component';
 import { OrderComponent } from './pages/order/order.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
-
 
 
 @NgModule({
@@ -43,8 +40,6 @@ import { DropdownModule } from 'primeng/dropdown';
   imports: [
     CommonModule,
     MainRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,

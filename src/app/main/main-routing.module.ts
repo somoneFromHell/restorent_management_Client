@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../Guards/Auth.Guard';
 import { mainComponent } from './main.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FoodMasterComponent } from './pages/food-master/food-master.component';
@@ -11,15 +12,13 @@ import { TablesComponent } from './pages/tables/tables.component';
 
 const routes: Routes = [
   {path:'',component:mainComponent,children:[
-    // {path:'',redirectTo:'main/dashboard',component:DashboardComponent},
-
-    {path:'dashboard',component:DashboardComponent},
-    {path:'food-master',component:FoodMasterComponent},
-    {path:'menu-master',component:MenuMasterComponent},
-    {path:'invoice',component:InvoiceComponent},
-    {path:'tables',component:TablesComponent},
-    {path:'table-master',component:TableMasterComponent},
-    {path:'order',component:OrderComponent},
+    {path:'dashboard',component:DashboardComponent,canActivate:[AuthGuard],data:{"backEndDependency":["invoice"]}},
+    {path:'food-master',component:FoodMasterComponent,canActivate:[AuthGuard],data:{"backEndDependency":['food','menu']}},
+    {path:'menu-master',component:MenuMasterComponent,canActivate:[AuthGuard],data:{"backEndDependency":['menu']}},
+    {path:'invoice',component:InvoiceComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table','food','menu']}},
+    {path:'tables',component:TablesComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table']}},
+    {path:'table-master',component:TableMasterComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table']}},
+    {path:'order',component:OrderComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table','food','menu','order','orderItems']}},
   ]}
   
 ];

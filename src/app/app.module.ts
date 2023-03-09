@@ -8,6 +8,8 @@ import { MainModule } from './main/main.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { registerComponent } from './auth/register/register.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { jwtInterceptor } from './helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { registerComponent } from './auth/register/register.component';
     MainModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: jwtInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

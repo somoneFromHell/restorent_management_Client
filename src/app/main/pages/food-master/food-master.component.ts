@@ -68,11 +68,8 @@ export class FoodMasterComponent {
     const formData = new FormData();
     if(this.foodForm.value){}
     formData.append('file', img);
-
-
   }
     
-  
 
   onSubmit() {
     if (this.foodForm.invalid) {

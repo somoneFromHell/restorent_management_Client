@@ -2,23 +2,22 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { userLoginModel } from "../models/userLoginModel";
-import { User } from "../models/user";
+import { JwtHelperService } from '@auth0/angular-jwt'
+import jwtDecode from "jwt-decode";
+import { UserModel } from "../models/user";
 
 
 @Injectable({providedIn:'root'})
 
 export class AuthService{
-    private currentUserSubject:BehaviorSubject<User>;
-    public currentUser:Observable<User>;
+    public token:Observable<string>;
 
     constructor(private _http:HttpClient){
-        let current = localStorage.getItem('Authorization')
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(current));
-        this.currentUser = this.currentUserSubject.asObservable();
     }
-
-    public get currentUserValue(): User {
-        return this.currentUserSubject.value;
+    userData(){
+        const token = localStorage.getItem('Authorization')
+        const currentUser:UserModel = jwtDecode(token);
+        return(currentUser)
     }
 
     url = "http://localhost:3200/api/user/login"
@@ -31,6 +30,5 @@ export class AuthService{
 
     logout(){
         localStorage.removeItem('Authorization');
-        this.currentUserSubject.next(null)
     }
 }
