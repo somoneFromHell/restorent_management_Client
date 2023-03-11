@@ -1,12 +1,11 @@
 export interface UserModel {
+    email: string;
     username: string;
     password: string;
     firstName: string;
     lastName: string;
-    role: {_id:string,roleName:string,routs:Array<any>};
-    token?: string;
+    pages:[pageModel]
 }
 
-export interface RoutsRightsModel{
-    rights:{POST:boolean,PUT:boolean,DELETE:boolean,GET:boolean}
-}
+
+export interface pageModel{navItem:boolean,pageName:string,pageRoute:string}

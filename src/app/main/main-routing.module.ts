@@ -12,13 +12,13 @@ import { TablesComponent } from './pages/tables/tables.component';
 
 const routes: Routes = [
   {path:'',component:mainComponent,children:[
-    {path:'dashboard',component:DashboardComponent,canActivate:[AuthGuard],data:{"backEndDependency":["invoice"]}},
-    {path:'food-master',component:FoodMasterComponent,canActivate:[AuthGuard],data:{"backEndDependency":['food','menu']}},
-    {path:'menu-master',component:MenuMasterComponent,canActivate:[AuthGuard],data:{"backEndDependency":['menu']}},
-    {path:'invoice',component:InvoiceComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table','food','menu']}},
-    {path:'tables',component:TablesComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table']}},
-    {path:'table-master',component:TableMasterComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table']}},
-    {path:'order',component:OrderComponent,canActivate:[AuthGuard],data:{"backEndDependency":['table','food','menu','order','orderItems']}},
+    {path:'dashboard',component:DashboardComponent,canActivate:[AuthGuard],data:{"pageName":"dashboard"}},
+    {path:'food-master',component:FoodMasterComponent,canActivate:[AuthGuard],data:{"pageName":'food master'}},
+    {path:'menu-master',component:MenuMasterComponent,canActivate:[AuthGuard],data:{"pageName":'menu master'}},
+    {path:'invoice',component:InvoiceComponent,canActivate:[AuthGuard],data:{"pageName":'invoice'}},
+    {path:'tables',component:TablesComponent,canActivate:[AuthGuard],data:{"pageName":'table'}},
+    {path:'table-master',component:TableMasterComponent,canActivate:[AuthGuard],data:{"pageName":'table master'}},
+    {path:'order',component:OrderComponent,canActivate:[AuthGuard],data:{"pageName":'order'}},
   ]}
   
 ];

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-main-header',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-header.component.css']
 })
 export class MainHeaderComponent {
+
+  constructor( private _authService:AuthService){}
+
+
+  onclick(){
+    this._authService.logout()
+  }
 
 }

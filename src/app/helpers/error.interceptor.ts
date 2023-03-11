@@ -12,6 +12,7 @@ export class Errorinterceptor implements HttpInterceptor{
         return next.handle(req).pipe(catchError(err=>{
             if([401,403].indexOf(err.status) !== -1){
                 this._authService.logout();
+                console.log('error interceptor called')
                 // location.reload(true);
             }
             const error = err.error.messege || err.statusText;
