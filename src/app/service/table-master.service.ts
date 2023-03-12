@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environment/environment';
 import { TableModel } from '../models/TableMaster';
 @Injectable({
   providedIn: 'root'
 })
 export class TableMasterService {
 
-  uri:string = "http://localhost:3200/api/table" 
+  uri = `${environment.apiURL}/table`
+
 
   constructor(private _http:HttpClient) { }
 

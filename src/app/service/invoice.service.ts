@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "src/environment/environment";
 import { invoiceModel } from "../models/invoiceModel";
 
 @Injectable({
@@ -10,7 +11,7 @@ export class InvoiceService {
 
     constructor(private _http:HttpClient){}
 
-    url = 'http://localhost:3200/api/invoice'
+    url = `${environment.apiURL}/invoice`
 
 
 

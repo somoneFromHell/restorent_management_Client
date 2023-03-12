@@ -32,22 +32,13 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "outputHashing": "all"
-            },
             "development": {
+              "fileReplacements": [{
+                "replace": "src/environment/environment.ts",
+                "with": "src/environment/environment.dev.ts"
+              }]
+            },
+            "production": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,

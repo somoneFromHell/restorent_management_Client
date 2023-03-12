@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environment/environment';
 import { menuMasterModel } from '../models/menuMaster';
 
 @Injectable({
@@ -9,9 +10,9 @@ export class MenuMasterService {
 
   constructor(private _http:HttpClient) { }
 
-  url = "http://localhost:3200/api/menu"
-
+  url = `${environment.apiURL}/menu`
   getAllMenu(){
+    console.log(this.url)
     return this._http.get(this.url)
   }
 

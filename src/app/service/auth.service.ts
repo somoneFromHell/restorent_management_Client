@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt'
 import jwtDecode from "jwt-decode";
 import { UserModel } from "../models/user";
 import { Router } from "@angular/router";
+import { environment } from "src/environment/environment";
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +16,11 @@ export class AuthService {
 
     constructor(private _http: HttpClient, private _router: Router) {
     }
+    
+    url = `${environment.apiURL}/user/login`
+
+
+
     userData() {
         const token = localStorage.getItem('Authorization')
         if(token){
@@ -26,7 +32,6 @@ export class AuthService {
         }
     }
 
-    url = "http://localhost:3200/api/user/login"
 
     userLogin(body: userLoginModel) {
         return this._http.post(this.url, body).subscribe((res: any) => {

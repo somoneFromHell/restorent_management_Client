@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environment/environment';
 import { TableModel } from '../models/TableMaster';
 
 @Injectable({
@@ -9,11 +10,12 @@ export class TablesService {
 
   constructor(private _http : HttpClient) { }
 
-  url = 'http://localhost:3200/api/table'
-  oderurl = 'http://localhost:3200/api/order'
+  uri = `${environment.apiURL}/table`
+
+  oderurl = `${environment.apiURL}/table`
 
   getTableStatus(){
-    return this._http.get(this.url)
+    return this._http.get(this.uri)
   }
 
   changeTableStatus(body:any){
