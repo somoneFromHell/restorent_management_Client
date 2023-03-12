@@ -42,7 +42,6 @@ export class MenuMasterComponent{
     console.log(this.dbOps)
     switch(this.dbOps){
     case DbOperation.create:
-      console.log("called")
       
     this._menuService.createMenu(<menuMasterModel>this.menuMasterForm.value).subscribe(()=>{
       this.getMenu()

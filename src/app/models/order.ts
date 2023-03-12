@@ -4,5 +4,5 @@ export interface orderModel{
     _id:string,
     orderDate:Date,
     TableId:String,
-    orderItems:orderItemModel
+    orderItems:Array<orderItemModel>
 }

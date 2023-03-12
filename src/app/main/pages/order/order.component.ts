@@ -34,17 +34,6 @@ export class OrderComponent {
   selectedTableId: any = ''
   // menuId = ''
 
-
-  ngOnInit() {
-    this.getMenu()
-    this.route.queryParams.subscribe(params => {
-      this.selectedTableId = params['TableId']
-    });
-    console.log(this.selectedTableId)
-    this.getOrderItems(this.selectedTableId)
-
-  }
-
   orderItemForm = new FormGroup({
     menuId: new FormControl('',Validators.required),
     foodId: new FormControl('', Validators.required),
@@ -52,21 +41,29 @@ export class OrderComponent {
     orderId: new FormControl(''),
   })
 
+  ngOnInit() {
+    this.getMenu()
+    this.route.queryParams.subscribe(params => {
+      this.selectedTableId = params['TableId']
+    });
+    this.getOrderItems(this.selectedTableId)
+  }
+
+
 
   // < stert from herre
   onSubmit() {
-    this.cancell()
-
+    console.log(<orderItemModel>this.orderItemForm.value,"form value")
     this._orderItemService.addOrderItem(this.selectedTableId, this.orderItemForm.value).subscribe(() => {
     this.getOrderItems(this.selectedTableId)
     this._tosetrService.success('data added', "success")
-
+      this.cancell()
 
     })
   }
 
   getMenu() { this._menuService.getAllMenu().subscribe((res: any) => { this.menuList = res }) }
-  getOrderItems(menuId: string) { this._orderItemService.getOrderItem(menuId).subscribe((res: any) => { this.orderItems = res }) }
+  getOrderItems(orderId: string) { this._orderItemService.getOrderItem(orderId).subscribe((res: any) => { this.orderItems = res })}
 
   menuSelected(mId: string) {
     this._foodService.getFoodByMenu(mId).subscribe((res: any) => {
@@ -106,9 +103,7 @@ export class OrderComponent {
     this.cancell()
   }
 
-  genrateInvoice(){
-    
-  }
+  
 
   delete(id: string) {
     Swal.fire({

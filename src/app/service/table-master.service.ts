@@ -23,7 +23,6 @@ export class TableMasterService {
   }
 
   deletetable(id:string){
-    console.log("delete called")
     return this._http.delete(`${this.uri}/${id}`)
   }
 

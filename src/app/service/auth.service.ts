@@ -32,9 +32,7 @@ export class AuthService {
         return this._http.post(this.url, body).subscribe((res: any) => {
             localStorage.setItem('Authorization', JSON.stringify(`Bearer ${res.msg}`))
             this._router.navigate(['/main/dashboard']);
-
         })
-
     }
 
     logout() {

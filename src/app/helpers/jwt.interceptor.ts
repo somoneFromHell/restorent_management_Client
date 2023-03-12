@@ -17,7 +17,6 @@ export class jwtInterceptor implements HttpInterceptor{
                     Authorization : token
                 }
             })
-            console.log(req.headers)
         }
         return next.handle(req);
 
