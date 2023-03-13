@@ -4,7 +4,8 @@ export interface UserModel {
     password: string;
     firstName: string;
     lastName: string;
-    pages:[pageModel]
+    pages:[pageModel];
+    role:string
 }
 
 

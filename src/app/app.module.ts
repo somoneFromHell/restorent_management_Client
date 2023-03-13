@@ -11,13 +11,15 @@ import { registerComponent } from './auth/register/register.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { jwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorComponent } from './auth/error/error.component';
+import { ProfileComponent } from './main/pages/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     registerComponent,
-    ErrorComponent
+    ErrorComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

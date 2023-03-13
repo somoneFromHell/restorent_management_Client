@@ -3,8 +3,7 @@ import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-main-header',
-  templateUrl: './main-header.component.html',
-  styleUrls: ['./main-header.component.css']
+  templateUrl: './main-header.component.html'
 })
 export class MainHeaderComponent {
 

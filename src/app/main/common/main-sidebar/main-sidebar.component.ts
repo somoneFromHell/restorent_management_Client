@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { pageModel } from 'src/app/models/user';
+import { pageModel, UserModel } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-main-sidebar',
   templateUrl: './main-sidebar.component.html',
-  styleUrls: ['./main-sidebar.component.css']
 })
 export class MainSidebarComponent implements OnInit {
 
   constructor(private _authService:AuthService){}
 
-   User = this._authService.userData();  
+   User:UserModel = this._authService.userData();  
+
    username:string = "" 
    listOfPages:pageModel[] = []
 
   ngOnInit(){
-   this.username =`${this.User.Data.firstName} ${this.User.Data.lastName}`
+   this.username =`${this.User.firstName} ${this.User.lastName}`
    this.getNaveItems()
   }
 
 
   getNaveItems(){
-    
-
-      this._authService.userData().pages.forEach((element:pageModel) => {
+      this.User.pages.forEach((element:pageModel) => {
         if (element.navItem) {
           this.listOfPages.push(element)
         }
       });
+
+      console.log(this.User.role)
+
     }
 }

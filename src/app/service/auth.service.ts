@@ -21,15 +21,17 @@ export class AuthService {
 
 
 
-    userData() {
+    userData(){
         const token = localStorage.getItem('Authorization')
-        if(token){
-
-            const currentUser: any = jwtDecode(token);
+        
+        try {
+            const currentUser:any = jwtDecode(token);
             return currentUser
-        }else{
-           this._router.navigate(['/login']);
+        } catch (error) {
+            this._router.navigate(['/login']);
+            console.log(error)
         }
+
     }
 
 
