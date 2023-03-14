@@ -19,6 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { invoiceListComponent } from './pages/invoiceList/invoiceList.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { DropdownModule } from 'primeng/dropdown';
     TableMasterComponent,
     MenuMasterComponent,
     FoodMasterComponent,
-    OrderComponent
+    OrderComponent,
+    ProfileComponent,
+    invoiceListComponent
   ],
   imports: [
     CommonModule,

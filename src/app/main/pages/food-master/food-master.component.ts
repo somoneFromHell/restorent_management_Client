@@ -6,6 +6,7 @@ import { foodMasterModel } from 'src/app/models/FoodMaster';
 import { menuMasterModel } from 'src/app/models/menuMaster';
 import { FoodService } from 'src/app/service/food.service';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-food-master',
@@ -26,7 +27,7 @@ export class FoodMasterComponent {
   foodList: foodMasterModel[] = []
   menuList: menuMasterModel[] = []
   selectedtext: string = "";
-  imageSrc:string|ArrayBuffer|null = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
+  imageSrc: string | ArrayBuffer | null = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
   // image = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png';
   file: any;
 
@@ -50,26 +51,25 @@ export class FoodMasterComponent {
   }
 
   onFileSelected(event: any) {
-    console.log(this.foodForm.value)
     this.file = event.target.files[0];
-    if (event.target.files && this.file){
+    if (event.target.files && this.file) {
       const imagefile = event.target.files[0];
       const reader = new FileReader();
       reader.onload = e => this.imageSrc = reader.result;
       reader.readAsDataURL(imagefile);
 
       this.foodForm.patchValue(
-        {foodImage:this.file}
+        { foodImage: this.file }
       )
-      console.log(this.foodForm.value)
-  }}
+    }
+  }
 
-  ImageUpload(img:File){
+  ImageUpload(img: File) {
     const formData = new FormData();
-    if(this.foodForm.value){}
+    if (this.foodForm.value) { }
     formData.append('file', img);
   }
-    
+
 
   onSubmit() {
     if (this.foodForm.invalid) {
@@ -79,22 +79,35 @@ export class FoodMasterComponent {
 
 
     switch (this.dbops) {
+
       case DbOperation.create:
-        console.log("called")
-        console.log(DbOperation.create)
-        this._foodService.addFoodData(<foodMasterModel>this.foodForm.value).subscribe(() => {
-          console.log(this.foodForm.value)
+        const formdata: any = new FormData();
+        formdata.append('food', this.foodForm.get('food').value)
+        formdata.append('description', this.foodForm.get('description').value)
+        formdata.append('price', this.foodForm.get('price').value)
+        formdata.append('foodImage', this.foodForm.get('foodImage').value)
+        formdata.append('menuId', this.foodForm.get('menuId').value)
+
+        this._foodService.addFoodData(formdata).subscribe(() => {
           this.getFood()
-          this._toster.success("new record added in menu", 'Success')
+          this._toster.success("new food item added in menu", 'Success')
           this.modalStatus = "modal"
         })
         break;
 
       case DbOperation.update:
-        console.log(this.foodForm.value)
-        this._foodService.updateFoodData(<foodMasterModel>this.foodForm.value).subscribe(() => {
+        const formdataForUpdate: any = new FormData();
+        formdataForUpdate.append('_id', this.foodForm.get('_id').value)
+        formdataForUpdate.append('food', this.foodForm.get('food').value)
+        formdataForUpdate.append('description', this.foodForm.get('description').value)
+        formdataForUpdate.append('price', this.foodForm.get('price').value)
+        formdataForUpdate.append('foodImage', this.foodForm.get('foodImage').value)
+        formdataForUpdate.append('menuId', this.foodForm.get('menuId').value)
+        console.log(formdataForUpdate)
+        this._foodService.updateFoodData(formdataForUpdate).subscribe(() => {
+          console.log("update called")
           this.getFood()
-          this._toster.success("record Updated", 'Success')
+          this._toster.success("food item Updated", 'Success')
           this.modalStatus = "modal"
         })
         break;
@@ -113,15 +126,13 @@ export class FoodMasterComponent {
     this.buttonText = "update"
     const updateFood = this.foodList.find((food: foodMasterModel) => food._id === id)
 
-    
+    if (updateFood) {
+      this.foodForm.controls['_id'].setValue(updateFood._id),
+        this.foodForm.controls['food'].setValue(updateFood.food),
+        this.foodForm.controls['description'].setValue(updateFood.description),
+        this.foodForm.controls['menuId'].setValue(updateFood.menuId),
+        this.foodForm.controls['price'].setValue(updateFood.price)
 
-    if (updateFood) 
-    { 
-      this.foodForm.controls['food'].setValue(updateFood.food),
-      this.foodForm.controls['description'].setValue(updateFood.description),
-      this.foodForm.controls['menuId'].setValue(updateFood.menuId),
-      this.foodForm.controls['price'].setValue(updateFood.price)
-      
       this.imageSrc = `http://localhost:3200/foodImages/${updateFood.foodImage}`
     }
 
@@ -131,17 +142,41 @@ export class FoodMasterComponent {
   }
 
   delete(id: string) {
-    this._foodService.deleteFoodData(id)
-    console.log(id)
-
-    this.getFood()
+    Swal.fire({
+      title: 'R u sure ??',
+      text: 'u will not be able to recover data',
+      icon: 'question',
+      confirmButtonText: "yah..",
+      denyButtonText: "nop",
+      showCancelButton: true
+    }).then((result => {
+      if (result.value) {
+        this._foodService.deleteFoodData(id).subscribe(res => {
+          this.getFood();
+          Swal.fire({
+            title: 'success',
+            text: 'food item removed successfully',
+            icon: 'success'
+          })
+        })
+      } else {
+        Swal.fire({
+          title: 'cancelled',
+          text: 'wtf y the hell you chose that in the first place',
+          icon: "error"
+        })
+      }
+    }))
   }
 
+
+
   onCancel() {
+
     this.foodForm.reset()
     this.buttonText = "save"
     this.submitted = false
 
-    this.imageSrc ='https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
+    this.imageSrc = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
   }
 }

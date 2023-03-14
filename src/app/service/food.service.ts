@@ -40,13 +40,6 @@ export class FoodService {
     return this._http.delete(`${this.url}/${id}`)
   }
 
-  upload(file:File):Observable<any>{
 
-    const formData = new FormData();
-
-    formData.append("",file,file.name);
-
-    return this._http.post(this.url,formData)
-  }
 
 }

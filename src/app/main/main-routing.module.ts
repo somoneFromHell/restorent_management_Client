@@ -5,6 +5,7 @@ import { mainComponent } from './main.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FoodMasterComponent } from './pages/food-master/food-master.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
+import { invoiceListComponent } from './pages/invoiceList/invoiceList.component';
 import { MenuMasterComponent } from './pages/menu-master/menu-master.component';
 import { OrderComponent } from './pages/order/order.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path:'table-master',component:TableMasterComponent,canActivate:[AuthGuard],data:{"pageName":'table master'}},
     {path:'order',component:OrderComponent,canActivate:[AuthGuard],data:{"pageName":'order'}},
     {path:'profile',component:ProfileComponent,data:{"pageName":'profile'}},
+    {path:'invoice-list',component:invoiceListComponent,data:{"pageName":'invoice list'}},
   ]}
   
 ];

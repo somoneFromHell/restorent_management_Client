@@ -1,1 +1,85 @@
-<p>profile works!</p>
+<div [hidden]="showProfile">
+    <div class="d-flex flex-column align-items-center text-center">
+        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary"
+            width="210">
+        <div class="mt-3">
+            <h4>{{username}}</h4>
+            <p class="text-secondary mb-1">{{User.roleTitle}}</p>
+            <p class="text-muted font-size-sm">{{User.Data.email}}</p>
+            <button class="btn btn-primary" (click)="edit()"><i class="fas fa-pen ml-2"></i> edit</button>
+        </div>
+    </div>
+
+
+</div>
+
+<div [hidden]="showEditForm" >
+
+    <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+
+
+    <form [formGroup]="EditProfileForm">
+
+        <div class='image-container '>
+            <img [src]="imageSrc" width="300" alt="somthing" (click)="launch.click()" class="rounded mx-auto d-block">
+        </div>
+
+
+        <div class="form-group">
+            <input class="form-control form-control-sm" (change)="onFileSelected($event)" hidden #launch id="formFileSm"
+                type="file">
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="fname" class="mb-1 font-waight-bold small">first name</label>
+                    <input type="text" class="form-control" id="fname" formControlName="firstName">
+        
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="lname" class="mb-1 font-waight-bold small">last name</label>
+                    <input type="text" class="form-control" id="lname" formControlName="lastName">
+        
+                </div>
+            </div>
+          </div>
+        <div class="form-group">
+            <label for="em" class="mb-1 font-waight-bold small">email</label>
+            <input type="text" class="form-control" id="em" formControlName="email">
+
+        </div>
+
+        <div class="form-group">
+            <label for="dob" class="mb-1 font-waight-bold small">birth date</label>
+            <input type="date" class="form-control" id="dob" formControlName="birthDate">
+
+        </div>
+
+        <div class="form-group">
+            <label for="gen" class="mb-1 font-waight-bold small">gender</label>
+
+            <p>
+                <input type="radio" id="ge" value="male" name="gender" formControlName="gender"> Male
+                <input type="radio" value="female" name="gender" formControlName="gender"> Female
+            </p>
+        </div>
+
+
+        <div class="form-group">
+            <label for="capacity" class="mb-1 font-weight-bold small">address</label>
+            <textarea type="text" class="form-control" id="capacity" placeholder="address" formControlName="address"></textarea>
+        </div>
+
+    </form>
+
+    <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary" (click)="shiftPages()" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">save</button>
+      </div>
+
+</div>

@@ -10,13 +10,12 @@ export class MainSidebarComponent implements OnInit {
 
   constructor(private _authService:AuthService){}
 
-   User:UserModel = this._authService.userData();  
-
+   User = this._authService.userData();  
    username:string = "" 
    listOfPages:pageModel[] = []
 
   ngOnInit(){
-   this.username =`${this.User.firstName} ${this.User.lastName}`
+   this.username =`${this.User.Data.firstName} ${this.User.Data.lastName}`
    this.getNaveItems()
   }
 

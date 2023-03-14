@@ -1,65 +1,68 @@
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a routerLink="/dashboard" class="brand-link" style="text-decoration: none">
-      <img src="assets/dist/img/main_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Maheta ji</span>
-    </a>
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a routerLink="/dashboard" class="brand-link" style="text-decoration: none">
+    <img src="assets/dist/img/main_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light">Maheta ji</span>
+  </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a class="d-block" style="text-decoration: none" routerLink="/profile"  data-toggle="modal" data-target="#exampleModalCenter">{{username}}</a>
-        </div>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
+      <div class="info">
+        <a class="d-block" style="text-decoration: none" data-toggle="modal"
+          data-target="#profileModal">{{username}}</a>
       </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
-          <li class="nav-header">EXAMPLES</li>
-          <li class="nav-item" *ngFor="let item of listOfPages">
-            <a routerLink="{{item.pageRoute}}" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>
-                {{item.pageName}}
-              </p>
-            </a>
-          </li>
-          
-
-
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
     </div>
 
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+      <div class="input-group" data-widget="sidebar-search">
+        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-sidebar">
+            <i class="fas fa-search fa-fw"></i>
+          </button>
+        </div>
+      </div>
+    </div>
 
- 
-    <!-- /.sidebar -->
-  </aside>
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
 
-  <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <li class="nav-header">EXAMPLES</li>
+        <li class="nav-item" *ngFor="let item of listOfPages">
+          <a routerLink="{{item.pageRoute}}" class="nav-link">
+            <i class="nav-icon fas fa-calendar-alt"></i>
+            <p>
+              {{item.pageName}}
+            </p>
+          </a>
+        </li>
+
+
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+
+
+
+  <!-- /.sidebar -->
+</aside>
+
+<!-- Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -69,24 +72,10 @@
         </button>
       </div>
       <div class="modal-body">
-        
-        <div class="d-flex flex-column align-items-center text-center">
-          <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="210">
-          <div class="mt-3">
-            <h4>{{username}}</h4>
-            <p class="text-secondary mb-1"></p>
-            <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-            <button class="btn btn-primary">Follow</button>
-            <button class="btn btn-outline-primary">Message</button>
-          </div>
-        </div>
-        <hr class="my-4">
-        
+
+        <app-profile></app-profile>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
   </div>
 </div>

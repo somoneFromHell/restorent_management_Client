@@ -16,22 +16,29 @@ export class AuthService {
 
     constructor(private _http: HttpClient, private _router: Router) {
     }
-    
+
     url = `${environment.apiURL}/user/login`
+    profileUrl = `${environment.apiURL}/user`
 
 
 
-    userData(){
+    userData() {
         const token = localStorage.getItem('Authorization')
-        
+
         try {
-            const currentUser:any = jwtDecode(token);
+            const currentUser: any = jwtDecode(token);
             return currentUser
         } catch (error) {
             this._router.navigate(['/login']);
             console.log(error)
         }
+    }
 
+    EditprofileData(body: UserModel) {
+        return this._http.put(`${this.profileUrl}/${body._id}`, body)
+    }
+    getProfiledata(body:UserModel){
+        return this._http.get(`${this.profileUrl}/${body._id}`)
     }
 
 
