@@ -46,7 +46,9 @@ export class InvoiceComponent {
       this.sGst = (9*this.subtotal)/100 
       this.total = this.sGst+this.cGst+this.subtotal
       this.orderId = res._id
-    })}
+    })
+    
+  }
 
   changebuttonText(text:string){
     this.buttonText=text
@@ -64,7 +66,7 @@ export class InvoiceComponent {
       subTotal:this.subtotal,
       sGst:this.sGst,
       cGst:this.cGst,
-    }).subscribe(res =>{})
+    } ).subscribe(res =>{} )
 
     this._tableService.changeTableStatus({_id:this.selectedTableId})
     this._orderservice.changeOrderStatus(this.orderId).subscribe(res=>{})

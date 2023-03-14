@@ -1,7 +1,7 @@
 
 export const environment = {
 
-    production: true,
+    production: false,
   
     title: 'Local Environment Heading',
   
