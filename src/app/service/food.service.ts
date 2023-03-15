@@ -32,8 +32,9 @@ export class FoodService {
     return this._http.post(this.url,data)
   }
 
-  updateFoodData(body:foodMasterModel){
-   return this._http.put(`${this.url}/${body._id}`,body)
+  updateFoodData(body:foodMasterModel,id:string){
+    console.log(body)
+   return this._http.put(`${this.url}/${id}`,body)
   }
 
   deleteFoodData(id:string){

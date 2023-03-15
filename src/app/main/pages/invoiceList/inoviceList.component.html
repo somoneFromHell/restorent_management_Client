@@ -1,0 +1,102 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Invoice list</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">admin</a></li>
+            <li class="breadcrumb-item active">menu</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  
+  <section class="content">
+    <div class="container-fluid">
+  
+      <div class="card">
+  
+        <!-- /.card-header -->
+        <div class="card-body">
+  
+          <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+  
+
+  
+          
+  
+          <hr class="hr" />
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>invoice id</th>
+                <th>date </th>
+                <th>table number</th>
+                <th>payment method</th>
+                <th>payment status</th>
+                <th>sub total</th>
+                <th>total amount</th>
+                <th>sgst</th>
+                <th>cgst</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of invoiceList">
+                <td>{{item._id}}</td>
+                <td>{{item.paymentDeueDate|date}}</td>
+                <td>{{item.tableNumber}}</td>
+                <td>{{item.paymentMethod}}</td>
+                <td>{{item.paymentStatus}}</td>
+                <td>{{item.subTotal}}</td>
+                <td>{{item.totalAmount}}</td>
+                <td>{{item.sGst}}</td>
+                <td>{{item.cGst}}</td>
+                <td>
+                  <a (click)="showInfo(item._id)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-info ml-2"></i></a>
+                </td>
+              </tr>
+  
+  
+            </tbody>
+          </table>
+  
+  
+  
+  
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+  
+      <p>data will be shown here</p>
+  
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          <!-- -- -- -- -- -- -- -- -- -- -- form -- -- -- -- -- -- -- -->
+  
+        </div>
+  
+      </div>
+      <!-- /.card -->
+      <!-- /.row -->
+  
+    </div><!-- /.container-fluid -->
+  </section>

@@ -57,6 +57,7 @@ export class InvoiceComponent {
   onClick(){
 
     this._invoiceService.saveInvoice({
+      _id:null,
       paymentMethod:this.paymentMethod,
       paymentDeueDate:new Date(),
       paymentStatus:"pending",

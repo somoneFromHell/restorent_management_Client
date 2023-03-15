@@ -1,6 +1,6 @@
 <div [hidden]="showProfile">
     <div class="d-flex flex-column align-items-center text-center">
-        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary"
+        <img [src]="userImage" alt="Admin" class="rounded-circle p-1 bg-primary"
             width="210">
         <div class="mt-3">
             <h4>{{username}}</h4>
@@ -21,7 +21,7 @@
     <form [formGroup]="EditProfileForm">
 
         <div class='image-container '>
-            <img [src]="imageSrc" width="300" alt="somthing" (click)="launch.click()" class="rounded mx-auto d-block">
+            <img [src]="userImage" width="300" alt="somthing" (click)="launch.click()" class="rounded mx-auto d-block">
         </div>
 
 

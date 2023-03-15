@@ -6,6 +6,7 @@ import { foodMasterModel } from 'src/app/models/FoodMaster';
 import { menuMasterModel } from 'src/app/models/menuMaster';
 import { FoodService } from 'src/app/service/food.service';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
+import { environment } from 'src/environment/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,12 +15,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./food-master.component.css']
 })
 
-
-
 export class FoodMasterComponent {
-
+  
   constructor(private _foodService: FoodService, private _menuService: MenuMasterService, private _toster: ToastrService) { }
-
+  
   dbops = DbOperation.create
   submitted = false
   buttonText = "save"
@@ -29,6 +28,8 @@ export class FoodMasterComponent {
   selectedtext: string = "";
   imageSrc: string | ArrayBuffer | null = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
   // image = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png';
+  Imagepath: any = `${environment.apiURL}/foodImages`;
+  
   file: any;
 
   foodForm = new FormGroup({
@@ -103,9 +104,7 @@ export class FoodMasterComponent {
         formdataForUpdate.append('price', this.foodForm.get('price').value)
         formdataForUpdate.append('foodImage', this.foodForm.get('foodImage').value)
         formdataForUpdate.append('menuId', this.foodForm.get('menuId').value)
-        console.log(formdataForUpdate)
-        this._foodService.updateFoodData(formdataForUpdate).subscribe(() => {
-          console.log("update called")
+        this._foodService.updateFoodData(formdataForUpdate,this.foodForm.value._id).subscribe(() => {
           this.getFood()
           this._toster.success("food item Updated", 'Success')
           this.modalStatus = "modal"
@@ -133,7 +132,7 @@ export class FoodMasterComponent {
         this.foodForm.controls['menuId'].setValue(updateFood.menuId),
         this.foodForm.controls['price'].setValue(updateFood.price)
 
-      this.imageSrc = `http://localhost:3200/foodImages/${updateFood.foodImage}`
+      this.imageSrc = `${environment.apiURL}/foodImages/${updateFood.foodImage}`
     }
 
     this.selectedtext = id

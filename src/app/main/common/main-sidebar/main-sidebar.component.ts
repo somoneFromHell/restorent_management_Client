@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { pageModel, UserModel } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-main-sidebar',
@@ -13,10 +14,13 @@ export class MainSidebarComponent implements OnInit {
    User = this._authService.userData();  
    username:string = "" 
    listOfPages:pageModel[] = []
+   userImage:string = `${environment.apiURL}/userImages/${this.User.Data.profileImage}`
+
 
   ngOnInit(){
    this.username =`${this.User.Data.firstName} ${this.User.Data.lastName}`
    this.getNaveItems()
+   console.log(this.userImage)
   }
 
 
@@ -27,7 +31,7 @@ export class MainSidebarComponent implements OnInit {
         }
       });
 
-      console.log(this.User.role)
+
 
     }
 }

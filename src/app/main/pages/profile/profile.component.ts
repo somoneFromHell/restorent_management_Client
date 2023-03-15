@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DbOperation } from 'src/app/helpers/dbOperations';
 import { UserModel } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-profile',
@@ -15,19 +16,14 @@ export class ProfileComponent {
   selectedImageFile: string;
   dbops = DbOperation.create
   submitted = false
-
-
-
-  imageSrc: string | ArrayBuffer | null = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
-
- 
-
-
-
+  
+  
+  
   constructor(private _authService: AuthService,private _toster:ToastrService) { }
-
+  
   username = ""
   User = this._authService.userData();
+  userImage:string| ArrayBuffer | null = `${environment.apiURL}/userImages/${this.User.Data.profileImage}`
 
   ngOnInit() {
     this.username = `${this.User.Data.firstName} ${this.User.Data.lastName}`
@@ -50,7 +46,7 @@ export class ProfileComponent {
     if (event.target.files && this.selectedImageFile) {
       const imagefile = event.target.files[0];
       const reader = new FileReader();
-      reader.onload = e => this.imageSrc = reader.result;
+      reader.onload = e => this.userImage = reader.result;
       reader.readAsDataURL(imagefile);
       this.EditProfileForm.patchValue(
         { profilepic: this.selectedImageFile }
@@ -72,9 +68,9 @@ export class ProfileComponent {
     formdata.append('birthDate', this.EditProfileForm.get('birthDate').value)
     formdata.append('address', this.EditProfileForm.get('address').value)
     formdata.append('gender', this.EditProfileForm.get('gender').value)
-    formdata.append('profilepic', this.EditProfileForm.get('profilepic').value)
+    formdata.append('profileImage', this.EditProfileForm.get('profilepic').value)
     console.log(formdata)
-    this._authService.EditprofileData(formdata).subscribe(() => {
+    this._authService.EditprofileData(formdata,this.EditProfileForm.value._id).subscribe(() => {
       this.shiftPages()
       this._toster.success("new food item added in menu", 'Success')
     })

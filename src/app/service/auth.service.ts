@@ -34,8 +34,8 @@ export class AuthService {
         }
     }
 
-    EditprofileData(body: UserModel) {
-        return this._http.put(`${this.profileUrl}/${body._id}`, body)
+    EditprofileData(body:UserModel,id:string) {
+        return this._http.put(`${this.profileUrl}/${id}`, body)
     }
     getProfiledata(body:UserModel){
         return this._http.get(`${this.profileUrl}/${body._id}`)
