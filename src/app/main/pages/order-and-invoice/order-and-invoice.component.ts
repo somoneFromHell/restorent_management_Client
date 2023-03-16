@@ -16,11 +16,6 @@ import { MenuMasterService } from 'src/app/service/menu-master.service';
 })
 export class OrderAndInvoiceComponent implements OnChanges, OnInit {
 
-  
-  edit(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
-
   constructor(private _menuService: MenuMasterService, private _foodServices: FoodService, private _Tostr: ToastrService) { }
 
   @Input() item = '';
@@ -31,7 +26,7 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
   menuList: menuMasterModel[] = [];
   foodList: foodMasterModel[] = [];
   showCreateForm: boolean = false;
-  selectedForDeleteList:number[] = [];
+  selectedForDeleteList: number[] = [];
   showDeleteButton = true;
   addInputForedit = false;
 
@@ -68,12 +63,12 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
       verificationList.push(element.food)
     });
     if (verificationList.includes(this.orderItemForm.value.food)) {
+      this._Tostr.error("error", "food item alrady exist")
+    }
+    else {
       this.orderItems.push(this.orderItemForm.value)
       const order = { orderItems: this.orderItems };
       localStorage.setItem(this.tableId, JSON.stringify(order))
-    }
-    else {
-      this._Tostr.error("error", "food item alrady exist")
     }
     this.showCreateForm = !this.showCreateForm
   }
@@ -90,15 +85,53 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     this.showDeleteButton = false
     let num = this.selectedForDeleteList.indexOf(arg0)
     console.log(num)
-    this.selectedForDeleteList.includes(arg0) ? this.selectedForDeleteList.splice(num,1) : this.selectedForDeleteList.push(arg0)
-    }
+    this.selectedForDeleteList.includes(arg0) ? this.selectedForDeleteList.splice(num, 1) : this.selectedForDeleteList.push(arg0)
+  }
 
-    delete() {
-     this.orderItems.forEach((element:any) => {
-        if(this.selectedForDeleteList.includes(this.orderItems.indexOf(element))){
-          this.orderItems.splice(this.orderItems.indexOf(element),1)
-        }
-     });
-    }
+  delete() {
+    this.orderItems.forEach((element: any) => {
+      if (this.selectedForDeleteList.includes(this.orderItems.indexOf(element))) {
+        this.orderItems.splice(this.orderItems.indexOf(element), 1)
+        this.selectedForDeleteList = [];
+
+      }
+    });
+    const order = { orderItems: this.orderItems };
+
+    localStorage.removeItem(this.tableId)
+    localStorage.setItem(this.tableId, JSON.stringify(order))
+  }
+
+  oninlineSubmit(contactForm: any) {
+    console.log(contactForm.value)
+  }
+
+  inlineEditForm = new FormGroup({
+    inlineEdit: new FormControl(1,)
+  })
+
+  forEdit(index: any) {
+    this.orderItems.forEach((res: any) => res.isEdit = false)
+    this.inlineEditForm.controls.inlineEdit.patchValue(this.orderItems[index].quantity)
+    this.orderItems[index].isEdit = true
+
+    console.log(this.orderItems)
+  }
+
+  updateQuntity(index: any) {
+    this.orderItems[index].quantity = this.inlineEditForm.value.inlineEdit
+    const order = { orderItems: this.orderItems };
+    this.abortInlineEdit()
+    localStorage.removeItem(this.tableId)
+    localStorage.setItem(this.tableId, JSON.stringify(order))
+    console.log(this.orderItems)
+  }
+
+
+  abortInlineEdit() {
+    this.orderItems.forEach((res: any) => res.isEdit = false)
+
+  }
+
 
 }
