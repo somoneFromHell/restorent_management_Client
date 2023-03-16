@@ -14,29 +14,43 @@
   </div><!-- /.container-fluid -->
 </section>
 <div class="text-center">
-<div *ngIf="tableList.length === 0" class="spinner-border " style="width: 6rem; height: 6rem;" role="status" >
-  <span class="sr-only">Loading...</span>
-</div>
+  <div *ngIf="tableList.length === 0" class="spinner-border " style="width: 6rem; height: 6rem;" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
 </div>
 
 <section class="content">
   <div class="container-fluid">
-<div class="row">
-  <div class="col-12 col-sm-6 col-md-3" *ngFor="let item of tableList">
-    <div class="info-box">
-      <span class="info-box-icon elevation-1 "  [ngClass]="{'bg-danger': item.occupied, 'bg-gradient-success': !item.occupied}">
-        <h1>{{item.tableNumber}}</h1>
-      </span>
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-3" *ngFor="let item of tableList">
+        <div class="info-box">
+          <span class="info-box-icon elevation-1 "
+            [ngClass]="{'bg-danger': item.occupied, 'bg-gradient-success': !item.occupied}">
+            <h1>{{item.tableNumber}}</h1>
+          </span>
 
-      <div class="info-box-content">
-        <span class="info-box-text small">capacity :- {{item.capacity}}</span>
-        <span class="info-box-number small" >current no of guests:-{{item.currentGuests}}</span>
-        <button type="submit" class="btn btn-outline-dark" (click)="!item.occupied && buttonClick(item._id)" [routerLink]="['/order']" [queryParams]="{TableId:item._id}">{{item.occupied? 'order info':'add order'}}</button>
+          <div class="info-box-content">
+            <span class="info-box-text small">capacity :- {{item.capacity}}</span>
+            <span class="info-box-number small">current no of guests:-{{item.currentGuests}}</span>
+            <!-- <button type="submit" class="btn btn-outline-dark" (click)="!item.occupied && buttonClick(item._id)" [routerLink]="['/order']" [queryParams]="{TableId:item._id}">{{item.occupied? 'order info':'add order'}}</button> -->
+            <a type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus" (click)="selectedtable(item._id)"></i></a>
+
+
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
       </div>
-      <!-- /.info-box-content -->
     </div>
-    <!-- /.info-box -->
   </div>
-</div>
-</div>
 
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <app-order-and-invoice [item]="selectedTableNo" [tableId]="selectedTableId"></app-order-and-invoice>
+        </div>
+      </div>
+    </div>
+  </div>

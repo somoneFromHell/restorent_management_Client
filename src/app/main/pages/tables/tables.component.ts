@@ -11,23 +11,25 @@ import { OrderService } from 'src/app/service/order.service';
   styleUrls: ['./tables.component.css']
 })
 export class TablesComponent {
-
+  
   constructor(private route:ActivatedRoute,private router:Router,private _tableMasterService:TableMasterService,private _tableService :TablesService,private _orderService :OrderService) {
     route.params.subscribe(val => this.loadTables());
   }
   tableList: TableModel[] =[]
+  selectedTableNo = ''
+  selectedTableId = ''
 
-
-
+  selectedtable(tableId: string):any{
+  const item = this.tableList.find(obj => obj._id === tableId)
+  this.selectedTableNo = item.tableNumber
+  this.selectedTableId = item._id
+  }
+  
   loadTables(){
     this.getTable();  
   }
 
-  ngOnInit() {
-
-   
- 
-    
+  ngOnInit() { 
   }
 
   getTable(){

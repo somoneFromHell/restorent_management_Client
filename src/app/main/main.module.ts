@@ -21,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { invoiceListComponent } from './pages/invoiceList/invoiceList.component';
+import { OrderAndInvoiceComponent } from './pages/order-and-invoice/order-and-invoice.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { invoiceListComponent } from './pages/invoiceList/invoiceList.component'
     FoodMasterComponent,
     OrderComponent,
     ProfileComponent,
-    invoiceListComponent
+    invoiceListComponent,
+    OrderAndInvoiceComponent
   ],
   imports: [
     CommonModule,

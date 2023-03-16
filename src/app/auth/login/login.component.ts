@@ -13,9 +13,11 @@ export class LoginComponent implements OnInit{
 
   constructor(private _loginService: AuthService,private _router: Router,private _toster:ToastrService) { }
 
+  submitted = false
+
   loginForm:FormGroup = new FormGroup({
-    email:new FormControl('',Validators.required),
-    password:new FormControl('',[Validators.required,Validators.email])
+    email:new FormControl('',[Validators.required,Validators.email]),
+    password:new FormControl('',[Validators.required,Validators.pattern("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$")])
   })
  
   get loginFormControll() {
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit{
   }
 
   loginFormsubmit(){
+    this.submitted = true
     try {
       
       this._loginService.userLogin(this.loginForm.value)

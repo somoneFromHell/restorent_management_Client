@@ -7,6 +7,7 @@ import jwtDecode from "jwt-decode";
 import { UserModel } from "../models/user";
 import { Router } from "@angular/router";
 import { environment } from "src/environment/environment";
+import { ToastrService } from "ngx-toastr";
 
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +15,7 @@ import { environment } from "src/environment/environment";
 export class AuthService {
     public token: Observable<string>;
 
-    constructor(private _http: HttpClient, private _router: Router) {
+    constructor(private _http: HttpClient, private _router: Router,private _tosterService:ToastrService) {
     }
 
     url = `${environment.apiURL}/user/login`
@@ -44,8 +45,13 @@ export class AuthService {
 
     userLogin(body: userLoginModel) {
         return this._http.post(this.url, body).subscribe((res: any) => {
+            if(res.success){
             localStorage.setItem('Authorization', JSON.stringify(`Bearer ${res.msg}`))
-            this._router.navigate(['/main/dashboard']);
+            this._router.navigate(['/main/dashboard']);}
+            else{
+                console.log(res.message)
+                this._tosterService.error(res.message)
+            }
         })
     }
 

@@ -10,19 +10,27 @@
 
         <form method="post" [formGroup]="loginForm">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="Email" formControlName="email">
+            <input type="email" class="form-control" [ngClass]="{'is-invalid' : loginForm.controls['email'].invalid && submitted}" placeholder="Email" formControlName="email">
             <div class="input-group-append">
+              
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
+            <div class="invalid-feedback">
+              <span *ngIf="loginForm.controls['email'].errors['required']">required</span>
+              <span *ngIf="loginForm.controls['email'].errors['email']" >email is not valid</span>
+            </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password" formControlName="password">
+            <input type="password" class="form-control" [ngClass]="{'is-invalid':loginForm.controls['password'].invalid && submitted}" placeholder="Password" formControlName="password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
+            </div>
+            <div class="invalid-feedback">
+              <span *ngIf="loginForm.controls['password'].errors['required']" >required</span>
             </div>
           </div>
           <div class="row">
