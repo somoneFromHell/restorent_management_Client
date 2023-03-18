@@ -8,12 +8,10 @@ import { ContentWrapperComponent } from './common/content-wrapper/content-wrappe
 import { MainSidebarComponent } from './common/main-sidebar/main-sidebar.component';
 import { MainHeaderComponent } from './common/main-header/main-header.component';
 import { mainComponent } from './main.component';
-import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { TablesComponent } from './pages/tables/tables.component';
 import { TableMasterComponent } from './pages/table-master/table-master.component';
 import { MenuMasterComponent } from './pages/menu-master/menu-master.component';
 import { FoodMasterComponent } from './pages/food-master/food-master.component';
-import { OrderComponent } from './pages/order/order.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,12 +31,10 @@ import { OrderAndInvoiceComponent } from './pages/order-and-invoice/order-and-in
     MainFooterComponent,
     DashboardComponent,
     mainComponent,
-    InvoiceComponent,
     TablesComponent,
     TableMasterComponent,
     MenuMasterComponent,
     FoodMasterComponent,
-    OrderComponent,
     ProfileComponent,
     invoiceListComponent,
     OrderAndInvoiceComponent

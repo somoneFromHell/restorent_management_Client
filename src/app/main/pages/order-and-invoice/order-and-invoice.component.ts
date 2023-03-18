@@ -5,7 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { foodMasterModel } from 'src/app/models/FoodMaster';
 import { menuMasterModel } from 'src/app/models/menuMaster';
 import { orderItemModel } from 'src/app/models/OrderItemModel';
+import { responseModel } from 'src/app/models/responseModel';
 import { FoodService } from 'src/app/service/food.service';
+import { InvoiceService } from 'src/app/service/invoice.service';
 import { MenuMasterService } from 'src/app/service/menu-master.service';
 
 
@@ -15,14 +17,18 @@ import { MenuMasterService } from 'src/app/service/menu-master.service';
   styleUrls: ['./order-and-invoice.component.css']
 })
 export class OrderAndInvoiceComponent implements OnChanges, OnInit {
-
-
-  constructor(private _menuService: MenuMasterService, private _foodServices: FoodService, private _Tostr: ToastrService) { }
-
+  sGst: number;
+  cGst: number;
+  
+  
+  
+  constructor(private _menuService: MenuMasterService, private _foodServices: FoodService, private _Tostr: ToastrService,private _invoiceServies:InvoiceService) { }
+  
   @Input() item = '';
   @Input() tableId = '';
   @Output() updateTableList = new EventEmitter();
-
+  
+  total: number;
   orderItems: any = [];
   Oitem: orderItemModel;
   menuList: menuMasterModel[] = [];
@@ -52,7 +58,7 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
 
   orderItemForm = new FormGroup({
     menuId: new FormControl('', [Validators.required]),
-    food: new FormControl('', [Validators.required]),
+    foodId: new FormControl('', [Validators.required]),
     quantity: new FormControl(1, [Validators.max(10), Validators.min(1)])
   })
 
@@ -65,13 +71,12 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     this.orderItems.forEach((element: any) => {
       verificationList.push(element.food)
     });
-    if (verificationList.includes(this.orderItemForm.value.food)) {
+    if (verificationList.includes(this.orderItemForm.value.foodId)) {
       this._Tostr.error("error", "food item alrady exist")
     }
     else {
 
-      this._foodServices.getFoodById(this.orderItemForm.value.food).subscribe((element: any) => {
-        console.log(element)
+      this._foodServices.getFoodById(this.orderItemForm.value.foodId).subscribe((element: any) => {
         this.orderItems.push(this.orderItemForm.value)
 
         this.orderItems[this.orderItems.length - 1].foodName = element.food
@@ -80,7 +85,6 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
 
         const order = { orderItems: this.orderItems };
       localStorage.setItem(this.tableId, JSON.stringify(order))
-      console.log(this.orderItems)
       this.updateTableList.emit()
       })
       
@@ -99,7 +103,6 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
   selectForDelete(arg0: any) {
     this.showDeleteButton = false
     let num = this.selectedForDeleteList.indexOf(arg0)
-    console.log(num)
     this.selectedForDeleteList.includes(arg0) ? this.selectedForDeleteList.splice(num, 1) : this.selectedForDeleteList.push(arg0)
   }
 
@@ -118,7 +121,6 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
   }
 
   oninlineSubmit(contactForm: any) {
-    console.log(contactForm.value)
   }
 
   inlineEditForm = new FormGroup({
@@ -130,7 +132,6 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     this.inlineEditForm.controls.inlineEdit.patchValue(this.orderItems[index].quantity)
     this.orderItems[index].isEdit = true
 
-    console.log(this.orderItems)
   }
 
   updateQuntity(index: any) {
@@ -139,7 +140,6 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     this.abortInlineEdit()
     localStorage.removeItem(this.tableId)
     localStorage.setItem(this.tableId, JSON.stringify(order))
-    console.log(this.orderItems)
   }
 
 
@@ -153,9 +153,22 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     this.currentOrderTotal = 0
     this.orderItems.forEach((element: any) => {
       this.currentOrderTotal = this.currentOrderTotal += element.unitTotal
-      console.log(this.currentOrderTotal)
     });
+    this.total = this.currentOrderTotal+(this.currentOrderTotal/100)*18.6
+    this.sGst = (this.currentOrderTotal/100)*9.3
+    this.cGst = (this.currentOrderTotal/100)*9.3
   }
+
+  saveInvoice() {
+    const Finalinvoice = {tableNumber:this.item,orderItems:this.orderItems,totalAmount:this.total,subTotal:this.currentOrderTotal,cGst:this.cGst,sGst:this.sGst}
+    this._invoiceServies.saveInvoice(Finalinvoice).subscribe((res:any)=>{
+      console.log(res.Message,res.Success)
+      res.Success ? this._Tostr.error("FAIL",'somthing went wrong'):this._Tostr.success("success",res.Message)
+    
+    })
+
+    console.log(Finalinvoice)
+    }
 
 
 }

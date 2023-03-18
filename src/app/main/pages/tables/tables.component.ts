@@ -43,7 +43,6 @@ export class TablesComponent {
     })
 
 
-    console.log(this.tableList)
   }
 
 
@@ -52,7 +51,6 @@ export class TablesComponent {
       TableId: id, orderDate: new Date()
     })
     this._tableService.changeTableStatus({ _id: id })
-    console.log(id)
   }
 
 }

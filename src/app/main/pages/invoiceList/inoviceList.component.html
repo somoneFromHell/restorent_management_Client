@@ -46,17 +46,13 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of invoiceList">
-                <td>{{item._id}}</td>
-                <td>{{item.paymentDeueDate|date}}</td>
                 <td>{{item.tableNumber}}</td>
-                <td>{{item.paymentMethod}}</td>
-                <td>{{item.paymentStatus}}</td>
                 <td>{{item.subTotal}}</td>
                 <td>{{item.totalAmount}}</td>
                 <td>{{item.sGst}}</td>
                 <td>{{item.cGst}}</td>
                 <td>
-                  <a (click)="showInfo(item._id)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-info ml-2"></i></a>
+                  <!-- <a (click)="showInfo(item._id)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-info ml-2"></i></a> -->
                 </td>
               </tr>
   

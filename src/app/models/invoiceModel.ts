@@ -1,10 +1,8 @@
+import { orderItemModel } from "./OrderItemModel";
+
 export interface invoiceModel {
-    _id: string,
-    orderId: string,
-    paymentMethod: string,
-    paymentStatus: string,
-    paymentDeueDate: Date,
-    tableNumber: Number,
+    orderItems:[orderItemModel]
+    tableNumber: String,
     totalAmount: Number,
     subTotal: Number,
     sGst: Number,
