@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { foodMasterModel } from 'src/app/models/FoodMaster';
@@ -16,10 +16,12 @@ import { MenuMasterService } from 'src/app/service/menu-master.service';
 })
 export class OrderAndInvoiceComponent implements OnChanges, OnInit {
 
+
   constructor(private _menuService: MenuMasterService, private _foodServices: FoodService, private _Tostr: ToastrService) { }
 
   @Input() item = '';
   @Input() tableId = '';
+  @Output() updateTableList = new EventEmitter();
 
   orderItems: any = [];
   Oitem: orderItemModel;
@@ -29,6 +31,8 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
   selectedForDeleteList: number[] = [];
   showDeleteButton = true;
   addInputForedit = false;
+  showInvoice = false
+  currentOrderTotal = 0
 
 
   ngOnInit() {
@@ -43,7 +47,6 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
       this.orderItemForm.reset()
       this.selectedForDeleteList = []
     }
-    console.log(this.selectedForDeleteList)
   }
 
 
@@ -66,9 +69,21 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
       this._Tostr.error("error", "food item alrady exist")
     }
     else {
-      this.orderItems.push(this.orderItemForm.value)
-      const order = { orderItems: this.orderItems };
+
+      this._foodServices.getFoodById(this.orderItemForm.value.food).subscribe((element: any) => {
+        console.log(element)
+        this.orderItems.push(this.orderItemForm.value)
+
+        this.orderItems[this.orderItems.length - 1].foodName = element.food
+        this.orderItems[this.orderItems.length - 1].price = element.price
+        this.orderItems[this.orderItems.length - 1].unitTotal = element.price * this.orderItemForm.value.quantity
+
+        const order = { orderItems: this.orderItems };
       localStorage.setItem(this.tableId, JSON.stringify(order))
+      console.log(this.orderItems)
+      this.updateTableList.emit()
+      })
+      
     }
     this.showCreateForm = !this.showCreateForm
   }
@@ -131,6 +146,15 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
   abortInlineEdit() {
     this.orderItems.forEach((res: any) => res.isEdit = false)
 
+  }
+
+  shiftPages() {
+    this.showInvoice = !this.showInvoice
+    this.currentOrderTotal = 0
+    this.orderItems.forEach((element: any) => {
+      this.currentOrderTotal = this.currentOrderTotal += element.unitTotal
+      console.log(this.currentOrderTotal)
+    });
   }
 
 

@@ -33,7 +33,7 @@ export class FoodMasterComponent {
   file: any;
 
   foodForm = new FormGroup({
-    _id: new FormControl(),
+    _id: new FormControl(''),
     food: new FormControl('', Validators.required),
     description: new FormControl(''),
     price: new FormControl(0, Validators.required),

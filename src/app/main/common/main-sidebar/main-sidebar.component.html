@@ -41,7 +41,7 @@
         <li class="nav-header">EXAMPLES</li>
         <li class="nav-item" *ngFor="let item of listOfPages">
           <a routerLink="{{item.pageRoute}}" class="nav-link">
-            <i class="nav-icon fas fa-calendar-alt"></i>
+            <i class="nav-icon fas {{item.icon}}"></i>
             <p>
               {{item.pageName}}
             </p>

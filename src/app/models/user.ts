@@ -13,4 +13,4 @@ export interface UserModel {
 }
 
 
-export interface pageModel{navItem:boolean,pageName:string,pageRoute:string}
+export interface pageModel{navItem:boolean,pageName:string,pageRoute:string,icon:string}

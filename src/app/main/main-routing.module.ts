@@ -18,7 +18,7 @@ const routes: Routes = [
     {path:'food-master',component:FoodMasterComponent,canActivate:[AuthGuard],data:{"pageName":'food master'}},
     {path:'menu-master',component:MenuMasterComponent,canActivate:[AuthGuard],data:{"pageName":'menu master'}},
     {path:'invoice',component:InvoiceComponent,canActivate:[AuthGuard],data:{"pageName":'invoice'}},
-    {path:'tables',component:TablesComponent,canActivate:[AuthGuard],data:{"pageName":'table'}},
+    {path:'tables',component:TablesComponent,canActivate:[AuthGuard],data:{"pageName":'order placing panel'}},
     {path:'table-master',component:TableMasterComponent,canActivate:[AuthGuard],data:{"pageName":'table master'}},
     {path:'order',component:OrderComponent,canActivate:[AuthGuard],data:{"pageName":'order'}},
     {path:'profile',component:ProfileComponent,data:{"pageName":'profile'}},

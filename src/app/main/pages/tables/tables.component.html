@@ -33,7 +33,7 @@
             <span class="info-box-text small">capacity :- {{item.capacity}}</span>
             <span class="info-box-number small">current no of guests:-{{item.currentGuests}}</span>
             <!-- <button type="submit" class="btn btn-outline-dark" (click)="!item.occupied && buttonClick(item._id)" [routerLink]="['/order']" [queryParams]="{TableId:item._id}">{{item.occupied? 'order info':'add order'}}</button> -->
-            <a type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus" (click)="selectedtable(item._id)"></i></a>
+            <a type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i [ngClass]="item.occupied ? 'fa fa-info-circle':'fa fa-plus'" (click)="selectedtable(item._id)"></i></a>
 
 
           </div>
@@ -49,7 +49,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
-          <app-order-and-invoice [item]="selectedTableNo" [tableId]="selectedTableId"></app-order-and-invoice>
+          <app-order-and-invoice [item]="selectedTableNo" [tableId]="selectedTableId" (updateTableList)="loadTables()"></app-order-and-invoice>
         </div>
       </div>
     </div>

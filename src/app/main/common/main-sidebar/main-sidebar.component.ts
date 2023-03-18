@@ -15,6 +15,7 @@ export class MainSidebarComponent implements OnInit {
    username:string = "" 
    listOfPages:pageModel[] = []
    userImage:string = `${environment.apiURL}/userImages/${this.User.Data.profileImage}`
+   icon = 'fa-users'
 
 
   ngOnInit(){
