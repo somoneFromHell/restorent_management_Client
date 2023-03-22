@@ -9,15 +9,21 @@ import { InvoiceService } from "src/app/service/invoice.service";
 })
 
 export class invoiceListComponent {
-showInfo(arg0: string) {
-throw new Error('Method not implemented.');
-}
+    
     invoiceList: invoiceModel[];
+    invoiceDetail:invoiceModel;
     constructor(private _invoiceServices:InvoiceService){}
-
+    
     ngOnInit(){
         this._invoiceServices.getAllinvoice().subscribe((res:any)=>{
             this.invoiceList = res
+            console.log(res)
+        })
+    }
+    
+    showInfo(invoiceId:string) {
+        this._invoiceServices.getInvoicebyId(invoiceId).subscribe((res:any)=>{
+            this.invoiceDetail = res
         })
     }
 

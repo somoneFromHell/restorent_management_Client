@@ -17,6 +17,7 @@ import { MenuMasterService } from 'src/app/service/menu-master.service';
   styleUrls: ['./order-and-invoice.component.css']
 })
 export class OrderAndInvoiceComponent implements OnChanges, OnInit {
+
   sGst: number;
   cGst: number;
   
@@ -42,6 +43,8 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
 
 
   ngOnInit() {
+    this.resetForm()
+
     this._menuService.getAllMenu().subscribe((res: any) => { this.menuList = res })
   }
 
@@ -50,21 +53,30 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     this.orderItems = []
     if (localStorage.getItem(changes['tableId'].currentValue)) {
       this.orderItems = JSON.parse(localStorage.getItem(changes['tableId'].currentValue)).orderItems
-      this.orderItemForm.reset()
+
       this.selectedForDeleteList = []
     }
   }
 
-
+  resetForm(){
+    this.orderItemForm.controls.menuId.patchValue("selectMenu") 
+    this.orderItemForm.controls.foodId.patchValue("selectFood") 
+    this.orderItemForm.controls.quantity.patchValue(1) 
+  }
+  
   orderItemForm = new FormGroup({
     menuId: new FormControl('', [Validators.required]),
     foodId: new FormControl('', [Validators.required]),
     quantity: new FormControl(1, [Validators.max(10), Validators.min(1)])
   })
+  
+  inlineEditForm = new FormGroup({
+    inlineEdit: new FormControl(1,)
+  })
 
-  addClick() {
-    this.showCreateForm = !this.showCreateForm
-  }
+  NoGuestForm = new FormGroup({
+    NoOfGuests: new FormControl(1)
+  })
 
   addorderItem() {
     var verificationList: any = []
@@ -85,6 +97,7 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
 
         const order = { orderItems: this.orderItems };
       localStorage.setItem(this.tableId, JSON.stringify(order))
+      this.resetForm()
       this.updateTableList.emit()
       })
       
@@ -123,9 +136,6 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
   oninlineSubmit(contactForm: any) {
   }
 
-  inlineEditForm = new FormGroup({
-    inlineEdit: new FormControl(1,)
-  })
 
   forEdit(index: any) {
     this.orderItems.forEach((res: any) => res.isEdit = false)
@@ -163,12 +173,19 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     const Finalinvoice = {tableNumber:this.item,orderItems:this.orderItems,totalAmount:this.total,subTotal:this.currentOrderTotal,cGst:this.cGst,sGst:this.sGst}
     this._invoiceServies.saveInvoice(Finalinvoice).subscribe((res:any)=>{
       console.log(res.Message,res.Success)
-      res.Success ? this._Tostr.error("FAIL",'somthing went wrong'):this._Tostr.success("success",res.Message)
-    
+      res.Success ? this._Tostr.success("success",res.Message):this._Tostr.error("FAIL",'somthing went wrong')
+      this. cancellOrder()
     })
 
     console.log(Finalinvoice)
     }
+
+
+    cancellOrder() {
+      this.orderItems = []
+      localStorage.removeItem(this.tableId)
+      this.updateTableList.emit()
+      }
 
 
 }

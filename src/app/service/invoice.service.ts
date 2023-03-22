@@ -24,5 +24,9 @@ export class InvoiceService {
         return this._http.get(this.url)
       }
 
+      getInvoicebyId(id:string){
+        return this._http.get(`${this.url}/${id}`)
+      }
+
     
 }
