@@ -14,18 +14,24 @@ import { ToastrService } from "ngx-toastr";
 
 export class AuthService {
     public token: Observable<string>;
-
-    constructor(private _http: HttpClient, private _router: Router,private _tosterService:ToastrService) {
-    }
-
+    constructor(private _http: HttpClient, private _router: Router,private _tosterService:ToastrService) { }
+    
     url = `${environment.apiURL}/user/login`
     profileUrl = `${environment.apiURL}/user`
+    
+    getAllUsers(){
+        return this._http.get(`${environment.apiURL}/user`)
+    }
+    getAllRoles() {
+        return this._http.get(`${environment.apiURL}/roles`)
+    }
 
-
+    getUserById(id:string) {
+        return this._http.get(`${environment.apiURL}/user/${id}`)
+    }
 
     userData() {
         const token = localStorage.getItem('Authorization')
-
         try {
             const currentUser: any = jwtDecode(token);
             return currentUser
@@ -42,22 +48,18 @@ export class AuthService {
         return this._http.get(`${this.profileUrl}/${body._id}`)
     }
 
+    registerUser(email:string,password:string){
+        return this._http.post(this.url,{email:email,password:password})
+    }
 
     userLogin(body: userLoginModel) {
         return this._http.post(this.url, body).subscribe((res: any) => {
-            if(res.success){
+            if(!res.success){console.log(res.message)}
             localStorage.setItem('Authorization', JSON.stringify(`Bearer ${res.msg}`))
-            this._router.navigate(['/main/dashboard']);}
-            else{
-                console.log(res.message)
-                this._tosterService.error(res.message)
-            }
-        })
-    }
+            this._router.navigate(['/main/dashboard']);
+        })}
 
     logout() {
-
-
         localStorage.clear();
         this._router.navigateByUrl('/login');
         console.log('logout called')

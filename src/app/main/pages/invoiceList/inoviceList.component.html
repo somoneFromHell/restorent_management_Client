@@ -48,7 +48,8 @@
               <td>{{item.createdAt| date:"HH:mm:ss"}}</td>
               <td>{{item.subTotal}}</td>
               <td>{{item.totalAmount}}</td>
-              <td><a  (click)="showInfo(item._id)" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-info-circle"></i></a></td>
+              <td><a (click)="showInfo(item._id)" data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                    class="fas fa-info-circle"></i></a></td>
 
             </tr>
 
@@ -133,24 +134,24 @@
                 <!-- Table row -->
                 <div class="row">
                   <div class="col-12 table-responsive">
-                    <table class="table table-sm">
-                      <thead>
-                        <tr>
-                          <th>Food item</th>
-                          <th>price</th>
-                          <th>quntity</th>
-                          <th>unit total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let item of invoiceDetail.orderItems">
-                          <td>{{item.foodName}}</td>
-                          <td>{{item.quantity}}</td>
-                          <td>{{item.unitPrice|currency:"INR":"symbol"}}</td>
-                        </tr>
-
-                      </tbody>
-                    </table>
+                      <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th>Food item</th>
+                            <th>price</th>
+                            <th>quntity</th>
+                            <th>unit total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of invoiceDetail.orderItems">
+                            <td>{{item.foodName}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.unitPrice|currency:"INR":"symbol"}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                   </div>
                   <!-- /.col -->
                 </div>
@@ -164,7 +165,7 @@
                     <p class="lead">Amount Due 2/22/2014</p>
 
                     <div class="table-responsive">
-                      <!-- <table class="table table-bordered">
+                      <table class="table table-bordered">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
                           <td>{{invoiceDetail.subTotal|currency:"INR":"symbol"}}</td>
@@ -179,9 +180,9 @@
                         </tr>
                         <tr>
                           <th>amount incl all texes:</th>
-                          <td>{{invoiceDetail.Total|currency:"INR":"symbol"}}</td>
+                          <td>{{invoiceDetail.totalAmount|currency:"INR":"symbol"}}</td>
                         </tr>
-                      </table> -->
+                      </table>
                     </div>
                   </div>
                   <!-- /.col -->

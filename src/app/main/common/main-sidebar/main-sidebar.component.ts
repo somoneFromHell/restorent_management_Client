@@ -21,7 +21,6 @@ export class MainSidebarComponent implements OnInit {
   ngOnInit(){
    this.username =`${this.User.Data.firstName} ${this.User.Data.lastName}`
    this.getNaveItems()
-   console.log(this.userImage)
   }
 
 

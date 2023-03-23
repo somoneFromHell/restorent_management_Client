@@ -7,6 +7,7 @@ export interface UserModel {
     lastName: string;
     birthDate:Date;
     address:string;
+    profileImage:string;
     gender:string
     pages:[pageModel];
     role:string

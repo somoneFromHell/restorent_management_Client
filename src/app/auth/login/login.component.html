@@ -17,7 +17,7 @@
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" *ngIf="loginForm.controls['email'].invalid && submitted">
               <span *ngIf="loginForm.controls['email'].errors['required']">required</span>
               <span *ngIf="loginForm.controls['email'].errors['email']" >email is not valid</span>
             </div>
@@ -29,7 +29,7 @@
                 <span class="fas fa-lock"></span>
               </div>
             </div>
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" *ngIf="loginForm.controls['password'].invalid && submitted" >
               <span *ngIf="loginForm.controls['password'].errors['required']" >required</span>
             </div>
           </div>

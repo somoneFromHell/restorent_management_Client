@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MainFooterComponent } from './common/main-footer/main-footer.component';
-import { ControllSidebarComponent } from './common/controll-sidebar/controll-sidebar.component';
 import { ContentWrapperComponent } from './common/content-wrapper/content-wrapper.component';
 import { MainSidebarComponent } from './common/main-sidebar/main-sidebar.component';
 import { MainHeaderComponent } from './common/main-header/main-header.component';
@@ -20,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { invoiceListComponent } from './pages/invoiceList/invoiceList.component';
 import { OrderAndInvoiceComponent } from './pages/order-and-invoice/order-and-invoice.component';
+import { UsersListComponent } from './pages/users-list/users-list.component';
 
 
 @NgModule({
@@ -27,7 +27,6 @@ import { OrderAndInvoiceComponent } from './pages/order-and-invoice/order-and-in
     MainHeaderComponent,
     MainSidebarComponent,
     ContentWrapperComponent,
-    ControllSidebarComponent,
     MainFooterComponent,
     DashboardComponent,
     mainComponent,
@@ -37,7 +36,8 @@ import { OrderAndInvoiceComponent } from './pages/order-and-invoice/order-and-in
     FoodMasterComponent,
     ProfileComponent,
     invoiceListComponent,
-    OrderAndInvoiceComponent
+    OrderAndInvoiceComponent,
+    UsersListComponent
   ],
   imports: [
     CommonModule,

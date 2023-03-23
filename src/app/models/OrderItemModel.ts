@@ -1,10 +1,11 @@
 export interface orderItemModel{
-    _id:string,
+    _id?:string,
     quantity:number,
     unitPrice:number,
     foodName:string,
-    orderId:string,
     menuId:string,
-    foodId:string
+    foodId:string,
+    price?:number,
+
 }
 

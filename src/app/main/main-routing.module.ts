@@ -9,6 +9,7 @@ import { MenuMasterComponent } from './pages/menu-master/menu-master.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TableMasterComponent } from './pages/table-master/table-master.component';
 import { TablesComponent } from './pages/tables/tables.component';
+import { UsersListComponent } from './pages/users-list/users-list.component';
 
 const routes: Routes = [
   {path:'',component:mainComponent,children:[
@@ -17,6 +18,7 @@ const routes: Routes = [
     {path:'menu-master',component:MenuMasterComponent,canActivate:[AuthGuard],data:{"pageName":'menu master'}},
     {path:'tables',component:TablesComponent,canActivate:[AuthGuard],data:{"pageName":'order placing panel'}},
     {path:'table-master',component:TableMasterComponent,canActivate:[AuthGuard],data:{"pageName":'table master'}},
+    {path:'users',component:UsersListComponent,canActivate:[AuthGuard],data:{"pageName":'users'}},
     {path:'profile',component:ProfileComponent,data:{"pageName":'profile'}},
     {path:'invoice-list',component:invoiceListComponent,data:{"pageName":'invoice list'}},
   ]}

@@ -93,7 +93,7 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
 
         this.orderItems[this.orderItems.length - 1].foodName = element.food
         this.orderItems[this.orderItems.length - 1].price = element.price
-        this.orderItems[this.orderItems.length - 1].unitTotal = element.price * this.orderItemForm.value.quantity
+        this.orderItems[this.orderItems.length - 1].unitPrice = element.price * this.orderItemForm.value.quantity
 
         const order = { orderItems: this.orderItems };
       localStorage.setItem(this.tableId, JSON.stringify(order))
@@ -162,7 +162,7 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
     this.showInvoice = !this.showInvoice
     this.currentOrderTotal = 0
     this.orderItems.forEach((element: any) => {
-      this.currentOrderTotal = this.currentOrderTotal += element.unitTotal
+      this.currentOrderTotal = this.currentOrderTotal += element.unitPrice
     });
     this.total = this.currentOrderTotal+(this.currentOrderTotal/100)*18.6
     this.sGst = (this.currentOrderTotal/100)*9.3
@@ -177,7 +177,7 @@ export class OrderAndInvoiceComponent implements OnChanges, OnInit {
       this. cancellOrder()
     })
 
-    console.log(Finalinvoice)
+    console.log(this.orderItems)
     }
 
 
