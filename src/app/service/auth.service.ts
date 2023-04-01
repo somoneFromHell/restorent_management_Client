@@ -53,11 +53,7 @@ export class AuthService {
     }
 
     userLogin(body: userLoginModel) {
-        return this._http.post(this.url, body).subscribe((res: any) => {
-            if(!res.success){console.log(res.message)}
-            localStorage.setItem('Authorization', JSON.stringify(`Bearer ${res.msg}`))
-            this._router.navigate(['/main/dashboard']);
-        })}
+        return this._http.post(this.url, body)}
 
     logout() {
         localStorage.clear();

@@ -1,4 +1,6 @@
 <div class="hold-transition login-page">
+
+
   <div class="login-box">
     <div class="login-logo">
       <a style="text-decoration: none"><b>maheta </b>ji</a>
@@ -6,40 +8,50 @@
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
+        <div *ngIf="loginError" class="alert alert-primary" role="alert">
+          {{errorMsg}}
+        </div>
         <p class="login-box-msg">Sign in to start your session</p>
 
         <form method="post" [formGroup]="loginForm">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" [ngClass]="{'is-invalid' : loginForm.controls['email'].invalid && submitted}" placeholder="Email" formControlName="email">
+            <input type="email" class="form-control"
+              [ngClass]="{'is-invalid' : loginForm.controls['email'].invalid && submitted}" placeholder="Email"
+              formControlName="email">
             <div class="input-group-append">
-              
+
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
             <div class="invalid-feedback" *ngIf="loginForm.controls['email'].invalid && submitted">
               <span *ngIf="loginForm.controls['email'].errors['required']">required</span>
-              <span *ngIf="loginForm.controls['email'].errors['email']" >email is not valid</span>
+              <span *ngIf="loginForm.controls['email'].errors['email']">email is not valid</span>
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" [ngClass]="{'is-invalid':loginForm.controls['password'].invalid && submitted}" placeholder="Password" formControlName="password">
+            <input type="password" class="form-control"
+              [ngClass]="{'is-invalid':loginForm.controls['password'].invalid && submitted}" placeholder="Password"
+              formControlName="password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
-            <div class="invalid-feedback" *ngIf="loginForm.controls['password'].invalid && submitted" >
-              <span *ngIf="loginForm.controls['password'].errors['required']" >required</span>
+            <div class="invalid-feedback" *ngIf="loginForm.controls['password'].invalid && submitted">
+              <span *ngIf="loginForm.controls['password'].errors['required']">required</span>
             </div>
           </div>
           <div class="row">
             <div class="col-8">
-              
+
             </div>
             <!-- /.col -->
             <div class="col-12">
-              <button type="submit" (click)="loginFormsubmit()" class="btn btn-primary btn-block">Sign In</button>
+              <button *ngIf="!showLoading" type="submit" (click)="loginFormsubmit()" class="btn btn-primary btn-block">Sign In</button>
+              <button *ngIf="showLoading" class="btn btn-primary btn-block disabled">
+                <i class="fa fa-spinner fa-spin"></i>Loading
+              </button>
             </div>
             <!-- /.col -->
           </div>
@@ -48,7 +60,7 @@
         <p class="mb-1">
           <a class="small" style="text-decoration: none;cursor:pointer;">forgot password</a>
         </p>
-        
+
       </div>
       <!-- /.login-card-body -->
     </div>
@@ -64,6 +76,12 @@
 
       </div>
     </div>
+
+
+
+
+
+
 
 
   </div>
