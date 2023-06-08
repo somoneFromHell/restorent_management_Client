@@ -20,7 +20,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { invoiceListComponent } from './pages/invoiceList/invoiceList.component';
 import { OrderAndInvoiceComponent } from './pages/order-and-invoice/order-and-invoice.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
-
+ import {MatTableModule} from '@angular/material/table'; 
 
 @NgModule({
   declarations: [
@@ -47,7 +47,9 @@ import { UsersListComponent } from './pages/users-list/users-list.component';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    DropdownModule
+    DropdownModule,
+    MatTableModule
+  
   ]
 })
 export class MainModule { }

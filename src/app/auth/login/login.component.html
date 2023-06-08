@@ -1,21 +1,20 @@
-<div class="hold-transition login-page">
+<div class="hold-transition login login-page">
 
 
   <div class="login-box">
-    <div class="login-logo">
-      <a style="text-decoration: none"><b>maheta </b>ji</a>
-    </div>
+    
     <!-- /.login-logo -->
-    <div class="card">
+    <div class="card blur">
       <div class="card-body login-card-body">
-        <div *ngIf="loginError" class="alert alert-primary" role="alert">
-          {{errorMsg}}
-        </div>
-        <p class="login-box-msg">Sign in to start your session</p>
 
+        <div class="text-center">
+          <img src="/assets/dist/img/old-man.png"
+            style="width: 185px;" alt="logo">
+          <h4 class="mt-1 pb-1">maheta ji</h4>
+        </div>
         <form method="post" [formGroup]="loginForm">
           <div class="input-group mb-3">
-            <input type="email" class="form-control"
+            <input type="email" defaultChecked="rango@gmail.com" class="form-control"
               [ngClass]="{'is-invalid' : loginForm.controls['email'].invalid && submitted}" placeholder="Email"
               formControlName="email">
             <div class="input-group-append">
@@ -30,7 +29,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control"
+            <input type="password" class="form-control" defaultValue="p@ssw0rd123"
               [ngClass]="{'is-invalid':loginForm.controls['password'].invalid && submitted}" placeholder="Password"
               formControlName="password">
             <div class="input-group-append">
@@ -54,12 +53,10 @@
               </button>
             </div>
             <!-- /.col -->
+
+            
           </div>
         </form>
-
-        <p class="mb-1">
-          <a class="small" style="text-decoration: none;cursor:pointer;">forgot password</a>
-        </p>
 
       </div>
       <!-- /.login-card-body -->

@@ -14,8 +14,6 @@ export class FoodService {
   url = `${environment.apiURL}/food`
 
 
-
-
   getFoodData(){
     return this._http.get(this.url)
   }

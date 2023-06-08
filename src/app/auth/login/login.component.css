@@ -1,0 +1,27 @@
+.login {
+    margin: 0px;
+    padding: 0px;
+
+    background-image: url("/assets/dist/img/login_background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: brightness(50%);
+    height: 100%;
+    overflow: hidden;
+
+}
+
+.blur {
+    padding: 3%;
+    border-radius: 10px;
+}
+
+
+img {
+    border-radius: 50%;
+}
+
+.make-visible{
+    filter: opacity(99%);    
+}

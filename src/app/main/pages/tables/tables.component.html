@@ -22,24 +22,23 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
+
       <div class="col-12 col-sm-6 col-md-3" *ngFor="let item of tableList">
-        <div class="info-box">
-          <span class="info-box-icon elevation-1 "
-            [ngClass]="{'bg-danger': item.occupied, 'bg-gradient-success': !item.occupied}">
-            <h1>{{item.tableNumber}}</h1>
-          </span>
-
-          <div class="info-box-content">
-            <span class="info-box-text small">capacity :- {{item.capacity}}</span>
-            <span class="info-box-number small">current no of guests:-{{item.currentGuests}}</span>
-            <!-- <button type="submit" class="btn btn-outline-dark" (click)="!item.occupied && buttonClick(item._id)" [routerLink]="['/order']" [queryParams]="{TableId:item._id}">{{item.occupied? 'order info':'add order'}}</button> -->
-            <a type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i [ngClass]="item.occupied ? 'fa fa-info-circle':'fa fa-plus'" (click)="selectedtable(item._id)"></i></a>
 
 
-          </div>
-          <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+            <!-- small box -->
+            <div class="small-box" [ngClass]="item.occupied ? 'bg-info':''">
+              <div class="inner">
+
+            <h3>{{item.tableNumber}}</h3>
+                <p>Capacity:- {{item.capacity}}</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a type="button" data-toggle="modal" data-target=".bd-example-modal-lg" class="small-box-footer" [text]="item.occupied ? 'order info':'create order'" (click)="selectedtable(item._id)"> <i [ngClass]="item.occupied ? 'fa fa-info':'fa fa-plus'"></i> </a>
+            </div>
+
       </div>
     </div>
   </div>
