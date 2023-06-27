@@ -161,7 +161,7 @@ export class FoodMasterComponent {
       } else {
         Swal.fire({
           title: 'cancelled',
-          text: 'wtf y the hell you chose that in the first place',
+          text: 'your data is safe',
           icon: "error"
         })
       }

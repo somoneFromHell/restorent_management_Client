@@ -93,7 +93,7 @@ export class MenuMasterComponent{
       }else{
         Swal.fire({
           title:'cancelled',
-          text:'wtf y the hell you chose that in the first place',
+          text:'operation aborted',
           icon:"error"
         })
       }
