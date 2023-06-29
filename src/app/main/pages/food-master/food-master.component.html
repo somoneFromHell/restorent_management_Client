@@ -44,7 +44,7 @@
               <td>
                 <img src="{{Imagepath}}/{{item.foodImage}}" alt="Product 1" class=" img-size-50 mr-2">
                 {{item.food}}</td>
-              <td>{{item.menuId}}</td>
+              <td>{{item.menuName[0].name}}</td>
               <td>{{item.price}}</td>
               <td>
                 <a (click)="edit(item._id)" data-toggle="modal" data-target="#exampleModalCenter"><i

@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { jwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorComponent } from './auth/error/error.component';
 import { ProfileComponent } from './main/pages/profile/profile.component';
+import { MatTableModule,MatTableDataSource } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProfileComponent } from './main/pages/profile/profile.component';
     BrowserAnimationsModule,
     DropdownModule,
     MainModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: jwtInterceptor, multi: true },],
   bootstrap: [AppComponent]

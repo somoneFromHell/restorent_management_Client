@@ -4,6 +4,7 @@ export const environment = {
   
     title: 'Local Environment Heading',
   
-    apiURL: 'http://localhost:3200/api'
-  
+    // apiURL: 'https://scarlet-centipede-slip.cyclic.app/api'
+
+    apiURL:'http://localhost:3200/api'
   };

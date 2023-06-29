@@ -15,7 +15,9 @@ export class FoodService {
 
 
   getFoodData(){
-    return this._http.get(this.url)
+    let daata = this._http.get(this.url)
+    console.log(daata)
+    return daata
   }
 
   getFoodById(id:string){

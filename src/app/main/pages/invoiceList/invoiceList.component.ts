@@ -2,9 +2,10 @@ import { Component } from "@angular/core";
 import { invoiceModel } from "src/app/models/invoiceModel";
 import { FoodService } from "src/app/service/food.service";
 import { InvoiceService } from "src/app/service/invoice.service";
+import { MatTableModule,MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
-
     selector: 'app-invoice-list',
     templateUrl: './inoviceList.component.html'
 })
@@ -12,7 +13,6 @@ import { InvoiceService } from "src/app/service/invoice.service";
 export class invoiceListComponent {
     
     invoiceList: Array<invoiceModel>;
-    invoiceDetail:invoiceModel = {orderItems:[{quantity:0,unitPrice:0,foodName:'',menuId:'',foodId:''}],tableNumber: '',totalAmount: 0,subTotal: 0,sGst: 0,cGst: 0,};
     constructor(private _invoiceServices:InvoiceService,private _foodServices:FoodService){}
     
     ngOnInit(){
@@ -22,13 +22,8 @@ export class invoiceListComponent {
         })
     }
     
-    showInfo(invoiceId:string) {
-        this._invoiceServices.getInvoicebyId(invoiceId).subscribe((res:any)=>{
-            this.invoiceDetail = res.Data
-            console.log(res)
-        })
+   
        
     }
 
 
-}

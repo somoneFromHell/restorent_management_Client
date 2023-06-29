@@ -171,11 +171,9 @@ export class FoodMasterComponent {
 
 
   onCancel() {
-
     this.foodForm.reset()
     this.buttonText = "save"
     this.submitted = false
-
     this.imageSrc = 'https://cdn.pixabay.com/photo/2017/11/10/05/24/select-2935439_960_720.png'
   }
 }
